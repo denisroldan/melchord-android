@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aiculabs.melchord" >
+    package="com.aiculabs.melchord">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.aiculabs.melchord.BoilerplateApplication"
+        android:name=".BoilerplateApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name="com.aiculabs.melchord.ui.main.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".ui.main.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,16 +21,20 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.aiculabs.melchord.data.SyncService"/>
+        <service android:name=".data.SyncService" />
 
         <receiver
-            android:name="com.aiculabs.melchord.data.SyncService$SyncOnConnectionAvailable"
+            android:name=".data.SyncService$SyncOnConnectionAvailable"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

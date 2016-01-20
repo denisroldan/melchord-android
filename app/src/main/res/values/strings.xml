@@ -9,4 +9,5 @@
 
     <string name="empty_ribots">There aren\'t any ribots</string>
     <string name="error_loading_ribots">There was a problem loading the ribots</string>
+    <string name="title_activity_search">melChord</string>
 </resources>
