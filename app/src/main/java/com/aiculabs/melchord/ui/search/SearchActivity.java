@@ -8,8 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.aiculabs.melchord.R;
+import com.aiculabs.melchord.data.model.ArtistSearch;
 
-public class SearchActivity extends AppCompatActivity {
+import java.util.List;
+
+public class SearchActivity extends AppCompatActivity implements SearchMvpView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,4 +31,18 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void showResults(List<ArtistSearch> artistSearches) {
+        //TODO - Esto seguramente vaya en la vista de Resultados... :/
+    }
+
+    @Override
+    public void showNoResults() {
+        // TODO - Si no hay resultados, mostrar un aviso en la misma pantalla
+    }
+
+    @Override
+    public void showError() {
+        // TODO - Si hay error de conexión o similar, mostrar aviso ;)
+    }
 }
