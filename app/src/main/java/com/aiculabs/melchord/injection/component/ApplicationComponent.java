@@ -3,6 +3,7 @@ package com.aiculabs.melchord.injection.component;
 import android.app.Application;
 import android.content.Context;
 
+import com.aiculabs.melchord.data.remote.ArtistService;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -25,6 +26,7 @@ public interface ApplicationComponent {
     @ApplicationContext Context context();
     Application application();
     RibotsService ribotsService();
+    ArtistService artistSearchService();
     PreferencesHelper preferencesHelper();
     DatabaseHelper databaseHelper();
     DataManager dataManager();

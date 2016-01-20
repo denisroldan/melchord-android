@@ -3,6 +3,7 @@ package com.aiculabs.melchord.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.aiculabs.melchord.data.remote.ArtistService;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -44,6 +45,12 @@ public class ApplicationModule {
     @Singleton
     RibotsService provideRibotsService() {
         return RibotsService.Creator.newRibotsService();
+    }
+
+    @Provides
+    @Singleton
+    ArtistService provideArtistService() {
+        return ArtistService.Creator.newArtistsService();
     }
 
 }
