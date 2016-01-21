@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
@@ -20,12 +21,15 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Inject SearchPresenter mSearchPresenter;
 
+    @Bind(R.id.queryEditText) EditText queryToSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSearchPresenter.search("Muse");
+                mSearchPresenter.search(queryToSearch.getText().toString());
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
             }

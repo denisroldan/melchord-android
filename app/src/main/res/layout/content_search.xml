@@ -12,4 +12,13 @@
     tools:context="com.aiculabs.melchord.ui.search.SearchActivity"
     tools:showIn="@layout/activity_search">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/queryEditText"
+        android:gravity="center_horizontal"
+        android:inputType="text"
+        android:hint="Search by Artist or Song"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
