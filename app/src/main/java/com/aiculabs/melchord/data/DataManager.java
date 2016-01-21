@@ -11,8 +11,10 @@ import rx.functions.Func1;
 import com.aiculabs.melchord.data.local.DatabaseHelper;
 import com.aiculabs.melchord.data.local.PreferencesHelper;
 import com.aiculabs.melchord.data.model.ArtistSearch;
+import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.data.model.Ribot;
 import com.aiculabs.melchord.data.remote.ArtistService;
+import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.aiculabs.melchord.data.remote.RibotsService;
 import com.aiculabs.melchord.util.EventPosterHelper;
 
@@ -31,16 +33,18 @@ public class DataManager {
 
     private final RibotsService mRibotsService;
     private final ArtistService mArtistSearchService;
+    private final ReleaseService mReleaseService;
     private final DatabaseHelper mDatabaseHelper;
     private final PreferencesHelper mPreferencesHelper;
     private final EventPosterHelper mEventPoster;
 
 
     @Inject
-    public DataManager(RibotsService ribotsService, ArtistService artistSearchService, PreferencesHelper preferencesHelper,
+    public DataManager(RibotsService ribotsService, ArtistService artistSearchService, ReleaseService releaseService, PreferencesHelper preferencesHelper,
                        DatabaseHelper databaseHelper, EventPosterHelper eventPosterHelper) {
         mRibotsService = ribotsService;
         mArtistSearchService = artistSearchService;
+        mReleaseService = releaseService;
         mPreferencesHelper = preferencesHelper;
         mDatabaseHelper = databaseHelper;
         mEventPoster = eventPosterHelper;
@@ -72,6 +76,16 @@ public class DataManager {
                     @Override
                     public Observable<? extends List<ArtistSearch>> call(List<ArtistSearch> artistSearches) {
                         return mArtistSearchService.getArtistSearchResults(query);
+                    }
+                });
+    }
+
+    public Observable<List<Release>> getReleaseResults(final String mbid){
+        return mReleaseService.getRelease(mbid)
+                .concatMap(new Func1<List<Release>, Observable<? extends List<Release>>>() {
+                    @Override
+                    public Observable<? extends List<Release>> call(List<Release> releaseList) {
+                        return mReleaseService.getRelease(mbid);
                     }
                 });
     }

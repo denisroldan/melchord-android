@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.aiculabs.melchord.data.remote.ArtistService;
+import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -27,6 +28,7 @@ public interface ApplicationComponent {
     Application application();
     RibotsService ribotsService();
     ArtistService artistSearchService();
+    ReleaseService releaseService();
     PreferencesHelper preferencesHelper();
     DatabaseHelper databaseHelper();
     DataManager dataManager();

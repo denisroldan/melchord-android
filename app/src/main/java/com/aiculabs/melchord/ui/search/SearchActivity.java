@@ -70,6 +70,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     public void showResults(List<ArtistSearch> artistSearches) {
         Intent i = new Intent(this, SearchResultsActivity.class);
         startActivity(i);
+
         //mSearchResultAdapter.setRibots(artistSearches);
         //mSearchResultAdapter.notifyDataSetChanged();
     }

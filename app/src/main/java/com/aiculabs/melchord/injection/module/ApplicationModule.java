@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.aiculabs.melchord.data.remote.ArtistService;
+import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -53,4 +54,9 @@ public class ApplicationModule {
         return ArtistService.Creator.newArtistsService();
     }
 
+    @Provides
+    @Singleton
+    ReleaseService provideReleaseService() {
+        return ReleaseService.Creator.newReleaseService();
+    }
 }
