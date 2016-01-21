@@ -18,12 +18,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class ArtistActivity extends BaseActivity implements ArtistMvpView{
+
     @Inject ArtistPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist);
-        getActivityComponent().inject(this);
+//        getActivityComponent().inject(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

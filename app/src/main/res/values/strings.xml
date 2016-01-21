@@ -12,5 +12,6 @@
     <string name="error_loading_artists">There was a problem loading the artists and songs</string>
     <string name="empty_artists_or_songs">There aren\'t any artists or songs</string>
     <string name="title_activity_search">melChord</string>
+    <string name="title_activity_artist">Resultados</string>
     <string name="logo">Logo</string>
 </resources>

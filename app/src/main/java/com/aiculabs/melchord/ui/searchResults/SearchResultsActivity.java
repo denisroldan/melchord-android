@@ -13,6 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class SearchResultsActivity extends BaseActivity implements SearchResultsMvpView {
+
     @Inject SearchResultsPresenter mSearchResultsPresenter;
     @Inject SearchResultAdapter mSearchResultsAdapter;
 
@@ -21,7 +22,7 @@ public class SearchResultsActivity extends BaseActivity implements SearchResults
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getActivityComponent().inject(this);
+        getActivityComponent().inject(this);
         setContentView(R.layout.activity_search_results);
         ButterKnife.bind(this);
         searchResultsRecyclerView.setAdapter(mSearchResultsAdapter);

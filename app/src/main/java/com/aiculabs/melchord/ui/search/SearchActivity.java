@@ -60,7 +60,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     @Override
     public void showResults(List<ArtistSearch> artistSearches) {
         //TODO - Esto seguramente vaya en la vista de Resultados... :/
-        Intent i = new Intent(this, ArtistActivity.class);
+        Intent i = new Intent(this, SearchResultsActivity.class);
         startActivity(i);
 
         //mSearchResultAdapter.setRibots(artistSearches);
