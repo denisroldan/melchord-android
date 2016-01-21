@@ -1,11 +1,8 @@
-package com.aiculabs.melchord.ui.search;
-
-import android.util.Log;
+package com.aiculabs.melchord.ui.searchResults;
 
 import com.aiculabs.melchord.data.DataManager;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.base.BasePresenter;
-import com.aiculabs.melchord.ui.main.MainMvpView;
 
 import java.util.List;
 
@@ -17,17 +14,18 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class SearchPresenter extends BasePresenter<SearchMvpView> {
+public class SearchResultsPresenter extends BasePresenter<SearchResultsMvpView> {
+
     private final DataManager mDataManager;
     private Subscription mSubscription;
 
     @Inject
-    public SearchPresenter(DataManager dataManager) {
+    public SearchResultsPresenter(DataManager dataManager) {
         mDataManager = dataManager;
     }
 
     @Override
-    public void attachView(SearchMvpView mvpView) {
+    public void attachView(SearchResultsMvpView mvpView) {
         super.attachView(mvpView);
     }
 
@@ -37,10 +35,10 @@ public class SearchPresenter extends BasePresenter<SearchMvpView> {
         if (mSubscription != null) mSubscription.unsubscribe();
     }
 
-    public void search(String query) {
+    public void showResults() {
         checkViewAttached();
 
-        mSubscription = mDataManager.getSearchResults(query)
+        mSubscription = mDataManager.getSearchResults("muse")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<List<ArtistSearch>>() {

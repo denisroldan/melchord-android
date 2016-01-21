@@ -3,6 +3,7 @@ package com.aiculabs.melchord.injection.component;
 import dagger.Component;
 import com.aiculabs.melchord.injection.PerActivity;
 import com.aiculabs.melchord.injection.module.ActivityModule;
+import com.aiculabs.melchord.ui.artist.ArtistActivity;
 import com.aiculabs.melchord.ui.main.MainActivity;
 import com.aiculabs.melchord.ui.search.SearchActivity;
 
@@ -14,5 +15,5 @@ import com.aiculabs.melchord.ui.search.SearchActivity;
 public interface ActivityComponent {
 
     void inject(SearchActivity searchActivity);
-
+    void inject(ArtistActivity artistActivity);
 }

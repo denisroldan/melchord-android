@@ -1,70 +1,53 @@
-package com.aiculabs.melchord.ui.search;
+package com.aiculabs.melchord.ui.artist;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
-import com.aiculabs.melchord.data.model.ArtistSearch;
-import com.aiculabs.melchord.ui.artist.ArtistActivity;
+import com.aiculabs.melchord.data.model.Artist;
 import com.aiculabs.melchord.ui.base.BaseActivity;
-import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
-import com.aiculabs.melchord.ui.searchResults.SearchResultsPresenter;
 import com.aiculabs.melchord.util.DialogFactory;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
-public class SearchActivity extends BaseActivity implements SearchMvpView {
-
-    @Inject SearchPresenter mSearchPresenter;
-    //@Inject SearchResultAdapter mSearchResultAdapter;
-
-    @Bind(R.id.queryEditText) EditText queryToSearch;
-
+public class ArtistActivity extends BaseActivity implements ArtistMvpView{
+    @Inject ArtistPresenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_artist);
         getActivityComponent().inject(this);
-        setContentView(R.layout.activity_search);
-        ButterKnife.bind(this);
-        mSearchPresenter.attachView(this);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        presenter.attachView(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSearchPresenter.search(queryToSearch.getText().toString());
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSearchPresenter.detachView();
+        presenter.detachView();
     }
 
     @Override
-    public void showResults(List<ArtistSearch> artistSearches) {
-        //TODO - Esto seguramente vaya en la vista de Resultados... :/
-        Intent i = new Intent(this, ArtistActivity.class);
-        startActivity(i);
+    public void showResults(List<Artist> artistSearches) {
 
-        //mSearchResultAdapter.setRibots(artistSearches);
-        //mSearchResultAdapter.notifyDataSetChanged();
     }
 
     @Override
