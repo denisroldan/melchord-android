@@ -5,29 +5,32 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
+import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.util.DialogFactory;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AppCompatActivity implements SearchMvpView {
+public class SearchActivity extends BaseActivity implements SearchMvpView {
 
-    @Inject
-    SearchPresenter mSearchPresenter;
+    @Inject SearchPresenter mSearchPresenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivityComponent().inject(this);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         mSearchPresenter.attachView(this);
@@ -45,6 +48,12 @@ public class SearchActivity extends AppCompatActivity implements SearchMvpView {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v("t", "ASF");
     }
 
     @Override

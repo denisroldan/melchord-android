@@ -1,5 +1,7 @@
 package com.aiculabs.melchord.ui.search;
 
+import android.util.Log;
+
 import com.aiculabs.melchord.data.DataManager;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.base.BasePresenter;
@@ -44,6 +46,7 @@ public class SearchPresenter extends BasePresenter<SearchMvpView> {
                 .subscribe(new Subscriber<List<ArtistSearch>>() {
                     @Override
                     public void onCompleted() {
+                        Log.wtf("", "HOLA");
                         //TODO - Se supone que auí tendremos más cosillas...
                     }
 
