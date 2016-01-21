@@ -31,7 +31,6 @@ import butterknife.OnClick;
 public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Inject SearchPresenter mSearchPresenter;
-    //@Inject SearchResultAdapter mSearchResultAdapter;
 
     @Bind(R.id.queryEditText) EditText queryToSearch;
     @Bind(R.id.progressBar) ProgressBar spinner;
