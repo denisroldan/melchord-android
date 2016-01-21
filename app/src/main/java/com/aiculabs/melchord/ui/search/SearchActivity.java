@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
@@ -22,6 +24,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchActivity extends BaseActivity implements SearchMvpView {
 
@@ -29,6 +32,14 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     //@Inject SearchResultAdapter mSearchResultAdapter;
 
     @Bind(R.id.queryEditText) EditText queryToSearch;
+    @Bind(R.id.progressBar) ProgressBar spinner;
+    @Bind(R.id.logo) ImageView logoIV;
+
+    @OnClick (R.id.fab)
+    void searchBtnPushed(){
+        changeUItoLoadingState();
+        mSearchPresenter.search(queryToSearch.getText().toString());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +51,12 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSearchPresenter.search(queryToSearch.getText().toString());
-            }
-        });
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        changeUItoInitialState();
     }
 
     @Override
@@ -59,10 +67,8 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Override
     public void showResults(List<ArtistSearch> artistSearches) {
-        //TODO - Esto seguramente vaya en la vista de Resultados... :/
         Intent i = new Intent(this, SearchResultsActivity.class);
         startActivity(i);
-
         //mSearchResultAdapter.setRibots(artistSearches);
         //mSearchResultAdapter.notifyDataSetChanged();
     }
@@ -71,12 +77,26 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     public void showNoResults() {
         // En caso de tener una lista de "cosas" sería necesario aquí vaciar el adapter
         // y decirle al adapter que se actualice
+        changeUItoInitialState();
         Toast.makeText(this, R.string.empty_artists_or_songs, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showError() {
+        changeUItoInitialState();
         DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_artists))
                 .show();
+    }
+
+    public void changeUItoLoadingState(){
+        spinner.setVisibility(View.VISIBLE);
+        logoIV.setVisibility(View.GONE);
+        queryToSearch.setVisibility(View.GONE);
+    }
+
+    public void changeUItoInitialState(){
+        spinner.setVisibility(View.GONE);
+        logoIV.setVisibility(View.VISIBLE);
+        queryToSearch.setVisibility(View.VISIBLE);
     }
 }

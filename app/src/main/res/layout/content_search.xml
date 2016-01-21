@@ -15,6 +15,15 @@
     android:backgroundTint="#63000000"
     android:backgroundTintMode="add">
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -24,7 +33,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
+            android:id="@+id/logo"
             android:contentDescription="@string/logo"
             android:src="@drawable/logo"
             android:maxWidth="150dp"
