@@ -10,15 +10,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.aiculabs.melchord.ui.search.SearchActivity"
-    tools:showIn="@layout/activity_search">
+    tools:showIn="@layout/activity_search"
+    android:background="@drawable/bg"
+    android:backgroundTint="#63000000"
+    android:backgroundTintMode="add">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/queryEditText"
-        android:gravity="center_horizontal"
-        android:inputType="text"
-        android:hint="Search by Artist or Song"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/logo"
+            android:maxWidth="150dp"
+            android:adjustViewBounds="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/queryEditText"
+            android:inputType="text"
+            android:hint="Search by Artist or Song"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:textColorHint="#e6fffa"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
 </RelativeLayout>
