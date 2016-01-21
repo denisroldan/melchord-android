@@ -17,6 +17,8 @@ import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsPresenter;
 import com.aiculabs.melchord.util.DialogFactory;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @OnClick (R.id.fab)
     void searchBtnPushed(){
-        changeUItoLoadingState();
+        animateUItoLoadingState();
         mSearchPresenter.search(queryToSearch.getText().toString());
     }
 
@@ -56,7 +58,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     @Override
     protected void onStart() {
         super.onStart();
-        changeUItoInitialState();
+        animateUItoInitialState();
     }
 
     @Override
@@ -77,26 +79,34 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     public void showNoResults() {
         // En caso de tener una lista de "cosas" sería necesario aquí vaciar el adapter
         // y decirle al adapter que se actualice
-        changeUItoInitialState();
+        animateUItoInitialState();
         Toast.makeText(this, R.string.empty_artists_or_songs, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showError() {
-        changeUItoInitialState();
+        animateUItoErrorState();
         DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_artists))
                 .show();
     }
 
-    public void changeUItoLoadingState(){
+    public void animateUItoLoadingState(){
+        YoYo.with(Techniques.FadeIn).duration(500).playOn(spinner);
         spinner.setVisibility(View.VISIBLE);
-        logoIV.setVisibility(View.GONE);
-        queryToSearch.setVisibility(View.GONE);
+        YoYo.with(Techniques.FadeOutUp).duration(300).playOn(logoIV);
+        YoYo.with(Techniques.FadeOutDown).duration(300).playOn(queryToSearch);
     }
 
-    public void changeUItoInitialState(){
+    public void animateUItoInitialState(){
+        YoYo.with(Techniques.FadeOut).duration(500).playOn(spinner);
         spinner.setVisibility(View.GONE);
-        logoIV.setVisibility(View.VISIBLE);
-        queryToSearch.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.FadeInDown).duration(300).playOn(logoIV);
+        YoYo.with(Techniques.FadeInUp).duration(300).playOn(queryToSearch);
     }
+
+    public void animateUItoErrorState(){
+        YoYo.with(Techniques.Tada).duration(700).playOn(logoIV);
+        animateUItoInitialState();
+    }
+
 }
