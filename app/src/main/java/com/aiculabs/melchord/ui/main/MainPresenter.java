@@ -36,7 +36,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
     public void loadRibots() {
         checkViewAttached();
-        mSubscription = mDataManager.getRibots()
+        /*mSubscription = mDataManager.getRibots()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<List<Ribot>>() {
@@ -58,7 +58,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                             getMvpView().showRibots(ribots);
                         }
                     }
-                });
+                });*/
     }
 
 }

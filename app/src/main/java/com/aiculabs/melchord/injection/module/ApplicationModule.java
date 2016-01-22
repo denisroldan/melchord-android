@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
+import com.aiculabs.melchord.data.remote.SongService;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -58,5 +59,11 @@ public class ApplicationModule {
     @Singleton
     ReleaseService provideReleaseService() {
         return ReleaseService.Creator.newReleaseService();
+    }
+
+    @Provides
+    @Singleton
+    SongService provideSongService() {
+        return SongService.Creator.newSongService();
     }
 }

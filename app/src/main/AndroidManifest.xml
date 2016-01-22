@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aiculabs.melchord">
+    package="com.aiculabs.melchord" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,24 +10,24 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.search.SearchActivity"
             android:label="@string/title_activity_search"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.searchResults.SearchResultsActivity"></activity>
+        <activity android:name=".ui.searchResults.SearchResultsActivity" />
 
         <service android:name=".data.SyncService" />
 
         <receiver
             android:name=".data.SyncService$SyncOnConnectionAvailable"
-            android:enabled="false">
+            android:enabled="false" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
@@ -36,15 +36,17 @@
         <activity
             android:name=".ui.artist.ArtistActivity"
             android:label="@string/title_activity_artist"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.release.ReleaseActivity"
             android:label="@string/title_activity_release"
             android:parentActivityName=".ui.artist.ArtistActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.aiculabs.melchord.ui.artist.ArtistActivity" />
+        </activity>
+        <activity android:name=".ui.song.SongActivity" >
         </activity>
     </application>
 

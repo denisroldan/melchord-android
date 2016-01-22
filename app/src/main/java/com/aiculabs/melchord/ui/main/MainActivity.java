@@ -75,15 +75,15 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void showError() {
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_ribots))
-                .show();
+        //DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_ribots))
+          //      .show();
     }
 
     @Override
     public void showRibotsEmpty() {
         mRibotsAdapter.setRibots(Collections.<Ribot>emptyList());
         mRibotsAdapter.notifyDataSetChanged();
-        Toast.makeText(this, R.string.empty_ribots, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, R.string.empty_ribots, Toast.LENGTH_LONG).show();
     }
 
 }

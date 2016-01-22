@@ -14,9 +14,11 @@ import com.aiculabs.melchord.data.model.Artist;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.data.model.Ribot;
+import com.aiculabs.melchord.data.model.Song;
 import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.aiculabs.melchord.data.remote.RibotsService;
+import com.aiculabs.melchord.data.remote.SongService;
 import com.aiculabs.melchord.util.EventPosterHelper;
 
 @Singleton
@@ -32,20 +34,20 @@ public class DataManager {
     * */
 
 
-    private final RibotsService mRibotsService;
     private final ArtistService mArtistService;
     private final ReleaseService mReleaseService;
+    private final SongService mSongService;
     private final DatabaseHelper mDatabaseHelper;
     private final PreferencesHelper mPreferencesHelper;
     private final EventPosterHelper mEventPoster;
 
 
     @Inject
-    public DataManager(RibotsService ribotsService, ArtistService artistSearchService, ReleaseService releaseService, PreferencesHelper preferencesHelper,
+    public DataManager(ArtistService artistSearchService, ReleaseService releaseService, SongService songService, PreferencesHelper preferencesHelper,
                        DatabaseHelper databaseHelper, EventPosterHelper eventPosterHelper) {
-        mRibotsService = ribotsService;
         mArtistService = artistSearchService;
         mReleaseService = releaseService;
+        mSongService = songService;
         mPreferencesHelper = preferencesHelper;
         mDatabaseHelper = databaseHelper;
         mEventPoster = eventPosterHelper;
@@ -54,20 +56,6 @@ public class DataManager {
 
     public PreferencesHelper getPreferencesHelper() {
         return mPreferencesHelper;
-    }
-
-    public Observable<Ribot> syncRibots() {
-        return mRibotsService.getRibots()
-                .concatMap(new Func1<List<Ribot>, Observable<Ribot>>() {
-                    @Override
-                    public Observable<Ribot> call(List<Ribot> ribots) {
-                        return mDatabaseHelper.setRibots(ribots);
-                    }
-                });
-    }
-
-    public Observable<List<Ribot>> getRibots() {
-        return mDatabaseHelper.getRibots().distinct();
     }
 
     // TODO - Esto funcionará?? xDD
@@ -93,6 +81,10 @@ public class DataManager {
                         return mReleaseService.getRelease(mbid);
                     }
                 });
+    }
+
+    public Observable<Song> getSong(final String mbid){
+        return mSongService.getSong(mbid);
     }
 
     /// Helper method to post events from doOnCompleted.

@@ -1,11 +1,8 @@
 package com.aiculabs.melchord.data.remote;
 
-import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.data.model.Song;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.List;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -19,7 +16,7 @@ public interface SongService {
     String ENDPOINT = APIConfig.BASE_URL;
 
     @GET("song/{mbid}")
-    Observable<List<Song>> getSongs(@Path("mbid") String mbid);
+    Observable<Song> getSong(@Path("mbid") String mbid);
 
     /******** Helper class that sets up a new services *******/
     class Creator {

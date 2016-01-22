@@ -1,10 +1,7 @@
-package com.aiculabs.melchord.ui.artist;
-
-import android.support.design.widget.Snackbar;
-import android.util.Log;
+package com.aiculabs.melchord.ui.song;
 
 import com.aiculabs.melchord.data.DataManager;
-import com.aiculabs.melchord.data.model.Artist;
+import com.aiculabs.melchord.data.model.Song;
 import com.aiculabs.melchord.ui.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -14,27 +11,27 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class ArtistPresenter extends BasePresenter<ArtistMvpView> {
+public class SongPresenter extends BasePresenter<SongMvpView> {
     private final DataManager mDataManager;
     private Subscription mSubscription;
 
     @Inject
-    public ArtistPresenter(DataManager dataManager) {
+    public SongPresenter(DataManager dataManager) {
         mDataManager = dataManager;
     }
 
     @Override
-    public void attachView(ArtistMvpView mvpView) {
+    public void attachView(SongMvpView mvpView) {
         super.attachView(mvpView);
     }
 
     public void getData(String mbid) {
         checkViewAttached();
         mSubscription = mDataManager
-                .getArtist(mbid)
+                .getSong(mbid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Artist>() {
+                .subscribe(new Subscriber<Song>() {
                     @Override
                     public void onCompleted() {}
 
@@ -42,7 +39,9 @@ public class ArtistPresenter extends BasePresenter<ArtistMvpView> {
                     public void onError(Throwable e) {getMvpView().showError();}
 
                     @Override
-                    public void onNext(Artist artist) {getMvpView().showArtist(artist);}
+                    public void onNext(Song song) {getMvpView().showSong(song);}
                 });
     }
+
+
 }

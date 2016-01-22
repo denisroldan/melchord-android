@@ -7,10 +7,9 @@
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_error_title">Sorry</string>
 
-    <string name="empty_ribots">There aren\'t any ribots</string>
-    <string name="error_loading_ribots">There was a problem loading the ribots</string>
-    <string name="error_loading_artist">There was a problem loading the artist</string>
     <string name="error_loading_artists">There was a problem loading the artists and songs</string>
+    <string name="error_loading_artist">There was a problem loading the artist</string>
+    <string name="error_loading_song">There was a problem loading the song</string>
     <string name="empty_artists_or_songs">There aren\'t any artists or songs</string>
     <string name="title_activity_search">melChord</string>
     <string name="title_activity_artist">Resultados</string>

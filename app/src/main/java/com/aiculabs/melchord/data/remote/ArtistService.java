@@ -3,7 +3,6 @@ package com.aiculabs.melchord.data.remote;
 import com.aiculabs.melchord.data.model.Artist;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.data.model.FeaturedArtist;
-import com.aiculabs.melchord.data.model.Ribot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

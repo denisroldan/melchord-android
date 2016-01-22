@@ -16,6 +16,7 @@ import com.aiculabs.melchord.ui.artist.ArtistActivity;
 import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsPresenter;
+import com.aiculabs.melchord.ui.song.SongActivity;
 import com.aiculabs.melchord.util.DialogFactory;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -68,14 +69,11 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Override
     public void showResults(List<ArtistSearch> artistSearches) {
-        Intent i = new Intent(this, ArtistActivity.class);
-        i.putExtra("mbid", queryToSearch.getText().toString());
+        //Intent i = new Intent(this, ArtistActivity.class);
+        //i.putExtra("mbid", queryToSearch.getText().toString());
         //Intent i = new Intent(this, SearchResultsActivity.class);
-
+        Intent i = new Intent(this, SongActivity.class);
         startActivity(i);
-
-        //mSearchResultAdapter.setRibots(artistSearches);
-        //mSearchResultAdapter.notifyDataSetChanged();
     }
 
     @Override
