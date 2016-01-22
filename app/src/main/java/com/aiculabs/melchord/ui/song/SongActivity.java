@@ -19,8 +19,7 @@ public class SongActivity extends BaseActivity implements SongMvpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song);
         getActivityComponent().inject(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         mSongPresenter.attachView(this);
         String mbid = getIntent().getStringExtra("mbid");

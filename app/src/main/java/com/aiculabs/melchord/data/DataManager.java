@@ -75,8 +75,9 @@ public class DataManager {
         return mArtistService.getArtist(mbid);
     }
     
-    public Observable<Song> getSong(final String mbid){
+    public Observable<Song> getSong(final String mbid) {
         return mSongService.getSong(mbid);
+    }
         
     /// Helper method to post events from doOnCompleted.
     private Action0 postEventAction(final Object event) {
