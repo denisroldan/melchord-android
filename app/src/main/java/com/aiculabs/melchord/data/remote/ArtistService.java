@@ -21,7 +21,7 @@ public interface ArtistService {
     String ENDPOINT = APIConfig.BASE_URL;
 
     @GET("artist/{mbid}")
-    Observable<List<Artist>> getArtist(@Path("mbid") String mbid);
+    Observable<Artist> getArtist(@Path("mbid") String mbid);
 
     @GET("artist/{term}")
     Observable<List<ArtistSearch>> getArtistSearchResults(@Path("term") String term);
