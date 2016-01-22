@@ -20,10 +20,10 @@ public class Release {
     private String launched;
     @SerializedName("thumbnail")
     @Expose
-    private Object thumbnail;
+    private String thumbnail;
     @SerializedName("large_image")
     @Expose
-    private Object largeImage;
+    private String largeImage;
     @SerializedName("type")
     @Expose
     private String type;
@@ -48,7 +48,7 @@ public class Release {
      * @param largeImage
      * @param type
      */
-    public Release(String mbid, String title, String launched, Object thumbnail, Object largeImage, String type, List<SongSet> songSet) {
+    public Release(String mbid, String title, String launched, String thumbnail, String largeImage, String type, List<SongSet> songSet) {
         this.mbid = mbid;
         this.title = title;
         this.launched = launched;
@@ -117,7 +117,7 @@ public class Release {
      * @return
      * The thumbnail
      */
-    public Object getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
@@ -126,7 +126,7 @@ public class Release {
      * @param thumbnail
      * The thumbnail
      */
-    public void setThumbnail(Object thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -135,7 +135,7 @@ public class Release {
      * @return
      * The largeImage
      */
-    public Object getLargeImage() {
+    public String getLargeImage() {
         return largeImage;
     }
 
@@ -144,7 +144,7 @@ public class Release {
      * @param largeImage
      * The large_image
      */
-    public void setLargeImage(Object largeImage) {
+    public void setLargeImage(String largeImage) {
         this.largeImage = largeImage;
     }
 

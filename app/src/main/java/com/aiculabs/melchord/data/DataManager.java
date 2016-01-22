@@ -13,11 +13,9 @@ import com.aiculabs.melchord.data.local.PreferencesHelper;
 import com.aiculabs.melchord.data.model.Artist;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.data.model.Release;
-import com.aiculabs.melchord.data.model.Ribot;
 import com.aiculabs.melchord.data.model.Song;
 import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
-import com.aiculabs.melchord.data.remote.RibotsService;
 import com.aiculabs.melchord.data.remote.SongService;
 import com.aiculabs.melchord.util.EventPosterHelper;
 
@@ -69,24 +67,17 @@ public class DataManager {
                 });
     }
 
+    public Observable<Release> getReleaseResults(final String mbid) {
+        return mReleaseService.getRelease(mbid);
+    }
+    
     public Observable<Artist> getArtist(final String mbid){
         return mArtistService.getArtist(mbid);
     }
-
-    public Observable<List<Release>> getReleaseResults(final String mbid){
-        return mReleaseService.getRelease(mbid)
-                .concatMap(new Func1<List<Release>, Observable<? extends List<Release>>>() {
-                    @Override
-                    public Observable<? extends List<Release>> call(List<Release> releaseList) {
-                        return mReleaseService.getRelease(mbid);
-                    }
-                });
-    }
-
+    
     public Observable<Song> getSong(final String mbid){
         return mSongService.getSong(mbid);
-    }
-
+        
     /// Helper method to post events from doOnCompleted.
     private Action0 postEventAction(final Object event) {
         return new Action0() {

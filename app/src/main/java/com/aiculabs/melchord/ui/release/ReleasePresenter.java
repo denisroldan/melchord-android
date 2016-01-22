@@ -44,7 +44,7 @@ public class ReleasePresenter extends BasePresenter<ReleaseMvpView> {
         mSubscription = mDataManager.getReleaseResults(mbid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<Release>>() {
+                .subscribe(new Subscriber<Release>() {
                     @Override
                     public void onCompleted() {
                         //TODO - Se supone que auí tendremos más cosillas...
@@ -52,17 +52,18 @@ public class ReleasePresenter extends BasePresenter<ReleaseMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.e(e, "There was an error searching...");
+                        Timber.e(e, "There was an error getting the release...");
                         getMvpView().showError();
                     }
 
                     @Override
-                    public void onNext(List<Release> releaseList) {
-                        if (releaseList.isEmpty()) {
-                            getMvpView().showNoResults();
-                        } else {
+                    public void onNext(Release releaseList) {
+                        if (releaseList != null){
                             getMvpView().showResults(releaseList);
+                        }else {
+                            getMvpView().showNoResults();
                         }
+
                     }
                 });
     }

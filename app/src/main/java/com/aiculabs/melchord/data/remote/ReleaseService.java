@@ -21,7 +21,7 @@ public interface ReleaseService {
     String ENDPOINT = APIConfig.BASE_URL;
 
     @GET("release/{mbid}")
-    Observable<List<Release>> getRelease(@Path("mbid") String mbid);
+    Observable<Release> getRelease(@Path("mbid") String mbid);
 
     /******** Helper class that sets up a new services *******/
     class Creator {
