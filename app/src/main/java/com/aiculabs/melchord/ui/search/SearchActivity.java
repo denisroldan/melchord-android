@@ -14,6 +14,8 @@ import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.artist.ArtistActivity;
 import com.aiculabs.melchord.ui.base.BaseActivity;
+import com.aiculabs.melchord.ui.release.ReleaseActivity;
+import com.aiculabs.melchord.ui.release.ReleaseConstants;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsPresenter;
 import com.aiculabs.melchord.util.DialogFactory;
@@ -68,7 +70,8 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Override
     public void showResults(List<ArtistSearch> artistSearches) {
-        Intent i = new Intent(this, SearchResultsActivity.class);
+        Intent i = new Intent(this, ReleaseActivity.class);
+        i.putExtra(ReleaseConstants.RELEASE_INTENT_MBID_TAG, "743b0b2e-a23a-3182-950e-232f8cb0dfb7");
         startActivity(i);
 
         //mSearchResultAdapter.setRibots(artistSearches);

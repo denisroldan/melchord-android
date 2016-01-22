@@ -80,14 +80,9 @@ public class DataManager {
                 });
     }
 
-    public Observable<List<Release>> getReleaseResults(final String mbid){
-        return mReleaseService.getRelease(mbid)
-                .concatMap(new Func1<List<Release>, Observable<? extends List<Release>>>() {
-                    @Override
-                    public Observable<? extends List<Release>> call(List<Release> releaseList) {
-                        return mReleaseService.getRelease(mbid);
-                    }
-                });
+
+    public Observable<Release> getReleaseResults(final String mbid) {
+        return mReleaseService.getRelease(mbid);
     }
 
     /// Helper method to post events from doOnCompleted.

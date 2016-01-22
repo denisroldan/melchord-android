@@ -6,7 +6,7 @@ import com.aiculabs.melchord.ui.base.MvpView;
 import java.util.List;
 
 public interface ReleaseMvpView extends MvpView {
-    void showResults(List<Release> releaseList);
+    void showResults(Release release);
 
     void showNoResults();
 
