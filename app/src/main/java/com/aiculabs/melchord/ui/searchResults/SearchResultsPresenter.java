@@ -15,7 +15,6 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class SearchResultsPresenter extends BasePresenter<SearchResultsMvpView> {
-
     private final DataManager mDataManager;
     private Subscription mSubscription;
 

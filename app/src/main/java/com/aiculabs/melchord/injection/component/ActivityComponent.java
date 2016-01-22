@@ -15,7 +15,6 @@ import com.aiculabs.melchord.ui.song.SongActivity;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-
     void inject(SearchActivity searchActivity);
     void inject(SearchResultsActivity searchResultsActivity);
     void inject(ArtistActivity artistActivity);

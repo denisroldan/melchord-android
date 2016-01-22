@@ -36,6 +36,7 @@ public class SearchResultsActivity extends BaseActivity implements SearchResults
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mSearchResultsPresenter.detachView();
     }
 
     @Override
@@ -45,11 +46,11 @@ public class SearchResultsActivity extends BaseActivity implements SearchResults
 
     @Override
     public void showNoResults() {
-
+        // TODO: Nunca debería pasar esto si y hacemos el filtro en la activity principal
     }
 
     @Override
     public void showError() {
-
+        // TODO: Nunca debería pasar esto si y hacemos el filtro en la activity principal
     }
 }
