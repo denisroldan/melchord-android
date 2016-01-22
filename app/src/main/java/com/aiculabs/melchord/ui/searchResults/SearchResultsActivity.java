@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.base.BaseActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.Bind;
@@ -28,8 +31,8 @@ public class SearchResultsActivity extends BaseActivity implements SearchResults
         searchResultsRecyclerView.setAdapter(mSearchResultsAdapter);
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mSearchResultsPresenter.attachView(this);
-        mSearchResultsPresenter.showResults();
+        ArrayList<HashMap<String, String>> results = (ArrayList<HashMap<String, String>>)(getIntent().getSerializableExtra("search_results"));
+        this.showResults(results);
 
     }
 
@@ -40,17 +43,7 @@ public class SearchResultsActivity extends BaseActivity implements SearchResults
     }
 
     @Override
-    public void showResults(List<ArtistSearch> artistSearches) {
-
-    }
-
-    @Override
-    public void showNoResults() {
-        // TODO: Nunca debería pasar esto si y hacemos el filtro en la activity principal
-    }
-
-    @Override
-    public void showError() {
-        // TODO: Nunca debería pasar esto si y hacemos el filtro en la activity principal
+    public void showResults(ArrayList<HashMap<String, String>> results) {
+        mSearchResultsAdapter.setResults(results);
     }
 }

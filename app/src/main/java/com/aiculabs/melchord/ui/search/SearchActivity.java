@@ -14,6 +14,8 @@ import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.artist.ArtistActivity;
 import com.aiculabs.melchord.ui.base.BaseActivity;
+import com.aiculabs.melchord.ui.release.ReleaseActivity;
+import com.aiculabs.melchord.ui.release.ReleaseConstants;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsPresenter;
 import com.aiculabs.melchord.ui.song.SongActivity;
@@ -21,6 +23,8 @@ import com.aiculabs.melchord.util.DialogFactory;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -72,15 +76,26 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Override
     public void showResults(List<ArtistSearch> artistSearches) {
-        //Intent i = new Intent(this, ArtistActivity.class);
+        Intent i = new Intent(this, ArtistActivity.class);
         //i.putExtra("mbid", queryToSearch.getText().toString());
-        Intent i = new Intent(this, SearchResultsActivity.class);
+        //Intent i = new Intent(this, SearchResultsActivity.class);
         //Intent i = new Intent(this, SongActivity.class);
 
         // For Release testing purposes
         //Intent i = new Intent(this, ReleaseActivity.class);
-        //i.putExtra(ReleaseConstants.RELEASE_INTENT_MBID_TAG, "743b0b2e-a23a-3182-950e-232f8cb0dfb7");
+        //i.putExtra(ReleaseConstants.RELEASE_INTENT_MBID_TAG, "3133d4d5-5cfb-4f53-87f5-f3a97c8f310d");
 
+        ArrayList<HashMap<String, String>> results = new ArrayList<>();
+
+        for (ArtistSearch artistSearchResult: artistSearches) {
+            HashMap<String, String> artistSearch = new HashMap<>();
+            artistSearch.put("name", artistSearchResult.getName());
+            artistSearch.put("mbid", artistSearchResult.getMbid());
+            artistSearch.put("comment", artistSearchResult.getComment());
+            results.add(artistSearch);
+        }
+
+        i.putExtra("search_results", results);
         startActivity(i);
 
         //mSearchResultAdapter.setRibots(artistSearches);

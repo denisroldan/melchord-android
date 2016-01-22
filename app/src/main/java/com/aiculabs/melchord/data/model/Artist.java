@@ -29,7 +29,7 @@ public class Artist {
     private String largeImage;
     @SerializedName("release_set")
     @Expose
-    private List<ReleaseSet> releaseSet = new ArrayList<ReleaseSet>();
+    private List<Release> releaseSet = new ArrayList<Release>();
 
     /**
      * No args constructor for use in serialization
@@ -48,7 +48,7 @@ public class Artist {
      * @param releaseSet
      * @param country
      */
-    public Artist(String mbid, String name, Object founded, String country, String thumbnail, String largeImage, List<ReleaseSet> releaseSet) {
+    public Artist(String mbid, String name, Object founded, String country, String thumbnail, String largeImage, List<Release> releaseSet) {
         this.mbid = mbid;
         this.name = name;
         this.founded = founded;
@@ -171,7 +171,7 @@ public class Artist {
      * @return
      * The releaseSet
      */
-    public List<ReleaseSet> getReleaseSet() {
+    public List<Release> getReleaseSet() {
         return releaseSet;
     }
 
@@ -180,7 +180,7 @@ public class Artist {
      * @param releaseSet
      * The release_set
      */
-    public void setReleaseSet(List<ReleaseSet> releaseSet) {
+    public void setReleaseSet(List<Release> releaseSet) {
         this.releaseSet = releaseSet;
     }
 }

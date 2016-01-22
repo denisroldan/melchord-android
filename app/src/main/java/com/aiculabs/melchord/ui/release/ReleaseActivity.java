@@ -98,7 +98,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
 
     @Override
     public void showError() {
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_artists))
+        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_release))
                 .show();
     }
 

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiculabs.melchord.R;
-import com.aiculabs.melchord.data.model.ReleaseSet;
+import com.aiculabs.melchord.data.model.Release;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,16 +23,16 @@ import butterknife.ButterKnife;
  * Created by Also on 22/1/16.
  */
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseViewHolder> {
-    private List<ReleaseSet> mReleases;
+    private List<Release> mReleases;
 
         @Inject
         public ArtistAdapter() {
             mReleases = new ArrayList<>();
         }
 
-        public void setReleases(List<ReleaseSet> releases) {
+        public void setReleases(List<Release> releases) {
             mReleases = new ArrayList<>();
-            for (ReleaseSet release: releases) {
+            for (Release release: releases) {
                 if (release.getType().equals("Album")) {
                     mReleases.add(release);
                 }
@@ -48,15 +48,15 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseVie
 
         @Override
         public void onBindViewHolder(ReleaseViewHolder holder, int position) {
-            ReleaseSet release = mReleases.get(position);
+            Release release = mReleases.get(position);
             holder.releaseTitle.setText(release.getTitle());
             String launched = "";
             if (release.getLaunched() != null) {
-                launched = release.getLaunched().toString();
+                launched = release.getLaunched();
             }
             if (release.getThumbnail() != null) {
                 // TODO: Poner un fondaco en error
-                Picasso.with(holder.releaseImage.getContext()).load(release.getThumbnail().toString()).error(R.drawable.bg).into(holder.releaseImage);
+                Picasso.with(holder.releaseImage.getContext()).load(release.getThumbnail()).error(R.drawable.bg).into(holder.releaseImage);
             } else {
                 holder.releaseImage.setImageResource(0);
             }

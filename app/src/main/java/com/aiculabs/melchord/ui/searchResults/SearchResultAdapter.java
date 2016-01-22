@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,49 +19,58 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ArtistSearchViewHolder> {
+public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ResultViewHolder> {
 
-    private List<ArtistSearch> mArtistSearches;
+    private List<HashMap<String, String>> mResults;
 
     @Inject
     public SearchResultAdapter() {
-        mArtistSearches = new ArrayList<>();
+        mResults = new ArrayList<>();
     }
 
-    public void setRibots(List<ArtistSearch> artistSearches) {
-        mArtistSearches = artistSearches;
+    public void setResults(List<HashMap<String, String>> results) {
+        mResults = results;
     }
 
     @Override
-    public ArtistSearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_ribot, parent, false);
-        return new ArtistSearchViewHolder(itemView);
+                .inflate(R.layout.row_search_result, parent, false);
+        return new ResultViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ArtistSearchViewHolder holder, int position) {
-        ArtistSearch artistSearch = mArtistSearches.get(position);
-        //holder.hexColorView.setBackgroundColor(Color.parseColor(artistSearch.profile.hexColor));
-        holder.nameTextView.setText(String.format("%s %s",
-                artistSearch.getName(), artistSearch.getArea()));
-        //holder.emailTextView.setText(ribot.profile.email);
+    public void onBindViewHolder(ResultViewHolder holder, int position) {
+        HashMap<String, String> result = mResults.get(position);
+        if (result.get("name") != null) {
+            holder.titleTextView.setText(result.get("name").toString());
+        }
+        if (result.get("comment") != null && !result.get("comment").equals("")) {
+            holder.commentTextView.setText(result.get("comment").toString());
+        }
+
+        holder.mbid = result.get("mbid").toString();
     }
 
     @Override
     public int getItemCount() {
-        return mArtistSearches.size();
+        return mResults.size();
     }
 
-    class ArtistSearchViewHolder extends RecyclerView.ViewHolder {
+    class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.view_hex_color) View hexColorView;
-        @Bind(R.id.text_name) TextView nameTextView;
-        @Bind(R.id.text_email) TextView emailTextView;
+        @Bind(R.id.row_search_result_title) TextView titleTextView;
+        @Bind(R.id.row_search_result_comment) TextView commentTextView;
+        public String mbid;
 
-        public ArtistSearchViewHolder(View itemView) {
+        public ResultViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(v.getContext(), mbid, 3);
         }
     }
 }

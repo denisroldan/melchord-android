@@ -47,7 +47,7 @@ public class ReleasePresenter extends BasePresenter<ReleaseMvpView> {
                 .subscribe(new Subscriber<Release>() {
                     @Override
                     public void onCompleted() {
-                        //TODO - Se supone que auí tendremos más cosillas...
+                        //TODO - Se supone que aquí tendremos más cosillas...
                     }
 
                     @Override

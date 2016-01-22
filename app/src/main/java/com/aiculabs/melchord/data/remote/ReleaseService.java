@@ -1,13 +1,8 @@
 package com.aiculabs.melchord.data.remote;
 
-import com.aiculabs.melchord.data.model.Artist;
-import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.data.model.Release;
-import com.aiculabs.melchord.data.model.ReleaseSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.List;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
