@@ -20,25 +20,19 @@ import javax.inject.Inject;
 public class ArtistActivity extends BaseActivity implements ArtistMvpView{
 
     @Inject ArtistPresenter presenter;
+    //@Inject ArtistAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist);
-//        getActivityComponent().inject(this);
+        getActivityComponent().inject(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         presenter.attachView(this);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        String mbid = getIntent().getStringExtra("mbid");
+        presenter.getData("9c9f1380-2516-4fc9-a3e6-f9f61941d090");
     }
 
     @Override
@@ -48,20 +42,12 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView{
     }
 
     @Override
-    public void showResults(List<Artist> artistSearches) {
-
-    }
-
-    @Override
-    public void showNoResults() {
-        // En caso de tener una lista de "cosas" sería necesario aquí vaciar el adapter
-        // y decirle al adapter que se actualice
-        Toast.makeText(this, R.string.empty_artists_or_songs, Toast.LENGTH_LONG).show();
+    public void showArtist(Artist artist) {
+        DialogFactory.createSimpleOkErrorDialog(this, "FUNSIONA", "El hartista hamijísimo se llama " + artist.getName() + " y es de " + artist.getCountry()).show();
     }
 
     @Override
     public void showError() {
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_artists))
-                .show();
+        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_artist)).show();
     }
 }

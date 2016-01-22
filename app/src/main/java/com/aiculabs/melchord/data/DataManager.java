@@ -10,6 +10,7 @@ import rx.functions.Action0;
 import rx.functions.Func1;
 import com.aiculabs.melchord.data.local.DatabaseHelper;
 import com.aiculabs.melchord.data.local.PreferencesHelper;
+import com.aiculabs.melchord.data.model.Artist;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.data.model.Ribot;
@@ -32,7 +33,7 @@ public class DataManager {
 
 
     private final RibotsService mRibotsService;
-    private final ArtistService mArtistSearchService;
+    private final ArtistService mArtistService;
     private final ReleaseService mReleaseService;
     private final DatabaseHelper mDatabaseHelper;
     private final PreferencesHelper mPreferencesHelper;
@@ -43,7 +44,7 @@ public class DataManager {
     public DataManager(RibotsService ribotsService, ArtistService artistSearchService, ReleaseService releaseService, PreferencesHelper preferencesHelper,
                        DatabaseHelper databaseHelper, EventPosterHelper eventPosterHelper) {
         mRibotsService = ribotsService;
-        mArtistSearchService = artistSearchService;
+        mArtistService = artistSearchService;
         mReleaseService = releaseService;
         mPreferencesHelper = preferencesHelper;
         mDatabaseHelper = databaseHelper;
@@ -71,18 +72,21 @@ public class DataManager {
 
     // TODO - Esto funcionará?? xDD
     public Observable<List<ArtistSearch>> getSearchResults(final String query){
-        return mArtistSearchService.getArtistSearchResults(query)
+        return mArtistService.getArtistSearchResults(query)
                 .concatMap(new Func1<List<ArtistSearch>, Observable<? extends List<ArtistSearch>>>() {
                     @Override
                     public Observable<? extends List<ArtistSearch>> call(List<ArtistSearch> artistSearches) {
-                        return mArtistSearchService.getArtistSearchResults(query);
+                        return mArtistService.getArtistSearchResults(query);
                     }
                 });
     }
 
-
     public Observable<Release> getReleaseResults(final String mbid) {
         return mReleaseService.getRelease(mbid);
+    }
+    
+    public Observable<Artist> getArtist(final String mbid){
+        return mArtistService.getArtist(mbid);
     }
 
     /// Helper method to post events from doOnCompleted.

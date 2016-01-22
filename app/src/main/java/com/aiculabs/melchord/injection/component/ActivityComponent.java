@@ -17,7 +17,7 @@ import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
 public interface ActivityComponent {
 
     void inject(SearchActivity searchActivity);
-//    void inject(ArtistActivity artistActivity);
+    void inject(ArtistActivity artistActivity);
     void inject(SearchResultsActivity searchResultsActivity);
     void inject(ReleaseActivity releaseActivity);
 }
