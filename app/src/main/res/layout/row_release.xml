@@ -1,35 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/row_release"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="#999999"
+    android:background="@color/background_black"
     android:padding="2dp"
-    >
+    android:gravity="center_vertical">
 
     <ImageView
         android:id="@+id/row_release_image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_weight="1"
-        android:focusable="false" />
+        android:focusable="false"
+        android:contentDescription="SongImg"
+        android:gravity="center_vertical|left"
+        android:layout_margin="2dp"/>
 
     <TextView
         android:id="@+id/row_release_title"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="@dimen/release_name_size"
+        tools:text="La vida Camina"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/row_release_image"
+        android:layout_toEndOf="@+id/row_release_image"
+        android:textColor="@color/light_text"
+        android:padding="5dp" />
 
     <TextView
         android:id="@+id/row_release_date"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.8"
-        android:paddingTop="10dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-</LinearLayout>
+        android:textSize="@dimen/release_duration_size"
+        tools:text="00:03:37"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/light_text"
+        android:padding="5dp"
+        android:gravity="right" />
+</RelativeLayout>
