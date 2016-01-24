@@ -23,70 +23,66 @@ import butterknife.ButterKnife;
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseViewHolder> {
     private List<Release> mReleases;
     private CustomItemClickListener mListener;
+        @Inject
+        public ArtistAdapter(CustomItemClickListener listener) {
+            mListener = listener;
+            mReleases = new ArrayList<>();
+        }
 
-    @Inject
-    public ArtistAdapter(CustomItemClickListener listener) {
-        mListener = listener;
-        mReleases = new ArrayList<>();
-    }
+        public void setReleases(List<Release> releases) {
+            mReleases = releases;
+        }
 
-    public void setReleases(List<Release> releases) {
-        mReleases = releases;
-    }
+        @Override
+        public ReleaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.row_release, parent, false);
+            final ReleaseViewHolder mViewHolder = new ReleaseViewHolder(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemClick(v, mViewHolder.getAdapterPosition());
+                }
+            });
+            return mViewHolder;
+        }
 
-    @Override
-    public ReleaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_release, parent, false);
-        final ReleaseViewHolder mViewHolder = new ReleaseViewHolder(itemView);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onItemClick(v, mViewHolder.getAdapterPosition());
+        @Override
+        public void onBindViewHolder(ReleaseViewHolder holder, int position) {
+            Release release = mReleases.get(position);
+            holder.releaseTitle.setText(release.getTitle());
+            String launched = "";
+            if (release.getLaunched() != null) {
+                launched = release.getLaunched();
             }
-        });
-        return mViewHolder;
-    }
+            if (release.getThumbnail() != null) {
+                // TODO: Poner un fondaco en error
+                Picasso.with(holder.releaseImage.getContext()).load(release.getThumbnail()).error(R.drawable.bg).into(holder.releaseImage);
+            } else {
+                holder.releaseImage.setImageResource(0);
+            }
+            if (launched.length() > 4) {
+                launched = launched.substring(0, 4);
+            }
+            holder.releaseDate.setText(launched);
 
-    @Override
-    public void onBindViewHolder(ReleaseViewHolder holder, int position) {
-        Release release = mReleases.get(position);
-        holder.releaseTitle.setText(release.getTitle());
-        String launched = "";
-        if (release.getLaunched() != null) {
-            launched = release.getLaunched();
         }
-        if (release.getThumbnail() != null) {
-            // TODO: Gestionar los errores
-            Picasso.with(holder.releaseImage.getContext()).load(release.getThumbnail()).error(R.drawable.bg).into(holder.releaseImage);
-        } else {
-            holder.releaseImage.setImageResource(0);
+
+        @Override
+        public int getItemCount() {
+            return mReleases.size();
         }
-        if (launched.length() > 4) {
-            launched = launched.substring(0, 4);
-        }
-        holder.releaseDate.setText(launched);
 
-    }
+        class ReleaseViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public int getItemCount() {
-        return mReleases.size();
-    }
+            @Bind(R.id.row_release_title) TextView releaseTitle;
+            @Bind(R.id.row_release_date) TextView releaseDate;
+            @Bind(R.id.row_release_image) ImageView releaseImage;
 
-    class ReleaseViewHolder extends RecyclerView.ViewHolder {
-
-        @Bind(R.id.row_release_title)
-        TextView releaseTitle;
-        @Bind(R.id.row_release_date)
-        TextView releaseDate;
-        @Bind(R.id.row_release_image)
-        ImageView releaseImage;
-
-        public ReleaseViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
+            public ReleaseViewHolder(View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
+            }
+}
 
 }
