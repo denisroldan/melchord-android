@@ -76,9 +76,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Override
     public void showResults(List<ArtistSearch> artistSearches) {
-        Intent i = new Intent(this, ArtistActivity.class);
-        //i.putExtra("mbid", queryToSearch.getText().toString());
-        //Intent i = new Intent(this, SearchResultsActivity.class);
+        Intent i = new Intent(this, SearchResultsActivity.class);
         //Intent i = new Intent(this, SongActivity.class);
 
         // For Release testing purposes
@@ -97,9 +95,6 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
         i.putExtra("search_results", results);
         startActivity(i);
-
-        //mSearchResultAdapter.setRibots(artistSearches);
-        //mSearchResultAdapter.notifyDataSetChanged();
     }
 
     @Override

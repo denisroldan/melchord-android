@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.Release;
+import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,26 +25,29 @@ import butterknife.ButterKnife;
  */
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseViewHolder> {
     private List<Release> mReleases;
-
+    private CustomItemClickListener mListener;
         @Inject
-        public ArtistAdapter() {
+        public ArtistAdapter(CustomItemClickListener listener) {
+            this.mListener = listener;
             mReleases = new ArrayList<>();
         }
 
         public void setReleases(List<Release> releases) {
-            mReleases = new ArrayList<>();
-            for (Release release: releases) {
-                if (release.getType().equals("Album")) {
-                    mReleases.add(release);
-                }
-            }
+            mReleases = releases;
         }
 
         @Override
         public ReleaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.row_release, parent, false);
-            return new ReleaseViewHolder(itemView);
+            final ReleaseViewHolder mViewHolder = new ReleaseViewHolder(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemClick(v, mViewHolder.getAdapterPosition());
+                }
+            });
+            return mViewHolder;
         }
 
         @Override

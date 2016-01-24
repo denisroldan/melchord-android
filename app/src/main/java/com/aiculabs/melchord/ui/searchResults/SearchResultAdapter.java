@@ -1,6 +1,7 @@
 package com.aiculabs.melchord.ui.searchResults;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
+import com.aiculabs.melchord.util.CustomItemClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,15 +20,18 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ResultViewHolder> {
 
     private List<HashMap<String, String>> mResults;
+    private CustomItemClickListener listener;
 
-    @Inject
-    public SearchResultAdapter() {
+    @Inject SearchResultAdapter(CustomItemClickListener listener) {
+        this.listener = listener;
         mResults = new ArrayList<>();
     }
+
 
     public void setResults(List<HashMap<String, String>> results) {
         mResults = results;
@@ -36,7 +41,16 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public ResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_search_result, parent, false);
-        return new ResultViewHolder(itemView);
+        final ResultViewHolder mViewHolder = new ResultViewHolder(itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, mViewHolder.getAdapterPosition());
+            }
+        });
+
+        return mViewHolder;
     }
 
     @Override
