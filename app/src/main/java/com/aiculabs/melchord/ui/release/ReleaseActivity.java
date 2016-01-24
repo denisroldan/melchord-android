@@ -125,7 +125,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             wm.getDefaultDisplay().getSize(size);
-            measuredHeight = size.y;
+            measuredHeight = size.y * 3 / 2;
         } else {
             Display d = wm.getDefaultDisplay();
             measuredHeight = d.getHeight();
