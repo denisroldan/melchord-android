@@ -68,11 +68,11 @@ public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.SongView
 
     class SongViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.release_trackNumberTextView)
+        @Bind(R.id.song_trackNumberTextView)
         TextView trackNumberTextView;
-        @Bind(R.id.release_name)
+        @Bind(R.id.song_name)
         TextView nameTextView;
-        @Bind(R.id.release_duration)
+        @Bind(R.id.song_duration)
         TextView durationTextView;
 
         public SongViewHolder(View itemView) {
