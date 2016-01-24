@@ -14,9 +14,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class TabActivity extends BaseActivity implements TabMvpView {
-    @Inject TabPresenter mTabPresenter;
+    @Inject
+    TabPresenter mTabPresenter;
 
-    @Bind(R.id.tab_webView) WebView tabWebView;
+    @Bind(R.id.tab_webView)
+    WebView tabWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,13 @@ public class TabActivity extends BaseActivity implements TabMvpView {
 
     @Override
     public void showTab(Tab tab) {
-        tabWebView.loadDataWithBaseURL(null, tab.getContent(), "text/html", "utf-8", null);
+        String plain_html = tab.getContent();
+        String accent_color = "#3dc1b6";
+        String background_color = "#1a1a1a";
+        String foreground_color = "#fff";
+        plain_html = plain_html.replace("html>", "html><style>.text-chord {color:" + accent_color + ";}body{background-color: " + background_color + ";color: " + foreground_color + ";}</style>");
+        tabWebView.loadDataWithBaseURL(null, plain_html, "text/html", "utf-8", null);
+
     }
 
     @Override

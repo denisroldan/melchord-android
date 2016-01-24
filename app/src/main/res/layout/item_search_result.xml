@@ -18,7 +18,7 @@
 
     <TextView
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="UK"
         android:id="@+id/row_search_result_comment"
@@ -26,7 +26,9 @@
         android:gravity="center_vertical|left"
         android:layout_margin="2dp"
         android:textColor="@color/accent"
-        android:paddingLeft="5dp" />
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 
     <TextView
         android:id="@+id/row_search_result_title"
