@@ -25,7 +25,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ArtistActivity extends BaseActivity implements ArtistMvpView{
-
     @Inject ArtistPresenter mArtistPresenter;
     private ArtistAdapter mArtistAdapter;
     private Artist mArtist;
@@ -52,8 +51,7 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView{
         mRecyclerView.setAdapter(mArtistAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mArtistPresenter.attachView(this);
-        String mbid = getIntent().getStringExtra("mbid");
-        mArtistPresenter.getData(mbid);
+        mArtistPresenter.getData(getIntent().getStringExtra("mbid"));
     }
 
     @Override

@@ -23,7 +23,7 @@ public class Song {
     private Integer number;
     @SerializedName("tab_set")
     @Expose
-    private List<TabSet> tabSet = new ArrayList<TabSet>();
+    private List<Tab> tabSet = new ArrayList<Tab>();
 
     /**
      * No args constructor for use in serialization
@@ -40,7 +40,7 @@ public class Song {
      * @param length
      * @param number
      */
-    public Song(String mbid, String title, String length, Integer number, List<TabSet> tabSet) {
+    public Song(String mbid, String title, String length, Integer number, List<Tab> tabSet) {
         this.mbid = mbid;
         this.title = title;
         this.length = length;
@@ -125,7 +125,7 @@ public class Song {
      * @return
      * The tabSet
      */
-    public List<TabSet> getTabSet() {
+    public List<Tab> getTabSet() {
         return tabSet;
     }
 
@@ -134,7 +134,7 @@ public class Song {
      * @param tabSet
      * The tab_set
      */
-    public void setTabSet(List<TabSet> tabSet) {
+    public void setTabSet(List<Tab> tabSet) {
         this.tabSet = tabSet;
     }
 

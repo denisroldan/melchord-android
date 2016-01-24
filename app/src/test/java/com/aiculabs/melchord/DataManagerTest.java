@@ -14,8 +14,6 @@ import rx.observers.TestSubscriber;
 import com.aiculabs.melchord.data.DataManager;
 import com.aiculabs.melchord.data.local.DatabaseHelper;
 import com.aiculabs.melchord.data.local.PreferencesHelper;
-import com.aiculabs.melchord.data.model.Ribot;
-import com.aiculabs.melchord.data.remote.RibotsService;
 import com.aiculabs.melchord.test.common.TestDataFactory;
 import com.aiculabs.melchord.util.EventPosterHelper;
 

@@ -6,13 +6,14 @@ import android.content.Context;
 import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.aiculabs.melchord.data.remote.SongService;
+import com.aiculabs.melchord.data.remote.TabService;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.aiculabs.melchord.data.remote.RibotsService;
+
 import com.aiculabs.melchord.injection.ApplicationContext;
 
 /**
@@ -45,12 +46,6 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    RibotsService provideRibotsService() {
-        return RibotsService.Creator.newRibotsService();
-    }
-
-    @Provides
-    @Singleton
     ArtistService provideArtistService() {
         return ArtistService.Creator.newArtistsService();
     }
@@ -66,4 +61,11 @@ public class ApplicationModule {
     SongService provideSongService() {
         return SongService.Creator.newSongService();
     }
+
+    @Provides
+    @Singleton
+    TabService provideTabService() {
+        return TabService.Creator.newTabServices();
+    }
+
 }

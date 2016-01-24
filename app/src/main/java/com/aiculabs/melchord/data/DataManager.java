@@ -14,9 +14,11 @@ import com.aiculabs.melchord.data.model.Artist;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.data.model.Song;
+import com.aiculabs.melchord.data.model.Tab;
 import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.aiculabs.melchord.data.remote.SongService;
+import com.aiculabs.melchord.data.remote.TabService;
 import com.aiculabs.melchord.util.EventPosterHelper;
 
 @Singleton
@@ -35,17 +37,19 @@ public class DataManager {
     private final ArtistService mArtistService;
     private final ReleaseService mReleaseService;
     private final SongService mSongService;
+    private final TabService mTabService;
     private final DatabaseHelper mDatabaseHelper;
     private final PreferencesHelper mPreferencesHelper;
     private final EventPosterHelper mEventPoster;
 
 
     @Inject
-    public DataManager(ArtistService artistSearchService, ReleaseService releaseService, SongService songService, PreferencesHelper preferencesHelper,
+    public DataManager(ArtistService artistSearchService, ReleaseService releaseService, SongService songService, TabService tabService, PreferencesHelper preferencesHelper,
                        DatabaseHelper databaseHelper, EventPosterHelper eventPosterHelper) {
         mArtistService = artistSearchService;
         mReleaseService = releaseService;
         mSongService = songService;
+        mTabService = tabService;
         mPreferencesHelper = preferencesHelper;
         mDatabaseHelper = databaseHelper;
         mEventPoster = eventPosterHelper;
@@ -56,7 +60,6 @@ public class DataManager {
         return mPreferencesHelper;
     }
 
-    // TODO - Esto funcionará?? xDD
     public Observable<List<ArtistSearch>> getSearchResults(final String query){
         return mArtistService.getArtistSearchResults(query)
                 .concatMap(new Func1<List<ArtistSearch>, Observable<? extends List<ArtistSearch>>>() {
@@ -78,7 +81,11 @@ public class DataManager {
     public Observable<Song> getSong(final String mbid) {
         return mSongService.getSong(mbid);
     }
-        
+
+    public Observable<Tab> getTab(final Integer id) {
+        return mTabService.getTab(id);
+    }
+
     /// Helper method to post events from doOnCompleted.
     private Action0 postEventAction(final Object event) {
         return new Action0() {

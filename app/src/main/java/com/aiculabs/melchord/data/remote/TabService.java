@@ -1,10 +1,8 @@
 package com.aiculabs.melchord.data.remote;
 
-import com.aiculabs.melchord.data.model.Song;
+import com.aiculabs.melchord.data.model.Tab;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.List;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -18,7 +16,7 @@ public interface TabService {
     String ENDPOINT = APIConfig.BASE_URL;
 
     @GET("tab/{id}")
-    Observable<List<Song>> getTab(@Path("id") Integer id);
+    Observable<Tab> getTab(@Path("id") Integer id);
 
     /******** Helper class that sets up a new services *******/
     class Creator {

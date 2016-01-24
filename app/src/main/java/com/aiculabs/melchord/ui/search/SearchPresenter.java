@@ -1,11 +1,8 @@
 package com.aiculabs.melchord.ui.search;
 
-import android.util.Log;
-
 import com.aiculabs.melchord.data.DataManager;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.base.BasePresenter;
-import com.aiculabs.melchord.ui.main.MainMvpView;
 
 import java.util.List;
 

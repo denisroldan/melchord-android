@@ -9,12 +9,9 @@ import android.os.IBinder;
 
 import javax.inject.Inject;
 
-import rx.Observer;
 import rx.Subscription;
-import rx.schedulers.Schedulers;
 import timber.log.Timber;
 import com.aiculabs.melchord.BoilerplateApplication;
-import com.aiculabs.melchord.data.model.Ribot;
 import com.aiculabs.melchord.util.AndroidComponentUtil;
 import com.aiculabs.melchord.util.NetworkUtil;
 

@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -18,19 +19,18 @@ import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.data.model.Song;
 import com.aiculabs.melchord.ui.base.BaseActivity;
+import com.aiculabs.melchord.ui.song.SongActivity;
+import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.aiculabs.melchord.util.DialogFactory;
 import com.aiculabs.melchord.util.MyLinearLayoutManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import timber.log.Timber;
 
 public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
 
@@ -38,7 +38,8 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
 
     @Inject
     ReleasePresenter mReleasePresenter;
-    @Inject ReleaseAdapter mReleaseAdapter;
+    private ReleaseAdapter mReleaseAdapter;
+    private Release mRelease;
 
     @Bind (R.id.toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
@@ -46,7 +47,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
     @Bind (R.id.backdrop)
     ImageView backdrop;
 
-    @Bind(R.id.release_recycler_view)
+    @Bind(R.id.songs_recycler_view)
     RecyclerView mRecyclerView;
 
     @Override
@@ -56,6 +57,14 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
         setContentView(R.layout.activity_release);
         ButterKnife.bind(this);
 
+        mReleaseAdapter = new ReleaseAdapter(new CustomItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent i = new Intent(getBaseContext(), SongActivity.class);
+                i.putExtra("mbid", mRelease.getSongSet().get(position).getMbid());
+                startActivity(i);
+            }
+        });
         mRecyclerView.setAdapter(mReleaseAdapter);
         final MyLinearLayoutManager layoutManager = new MyLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false, getScreenHeight(this));
         mRecyclerView.setLayoutManager(layoutManager);
@@ -82,7 +91,8 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
     }
 
     @Override
-    public void showResults(Release release) {
+    public void showRelease(Release release) {
+        mRelease = release;
         title = release.getTitle();
         if (release.getLargeImage() != null) image_url = release.getLargeImage();
         refreshUI();

@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_release">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/release_recycler_view"
+        android:id="@+id/songs_recycler_view"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

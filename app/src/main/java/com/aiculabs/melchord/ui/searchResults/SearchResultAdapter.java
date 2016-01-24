@@ -1,15 +1,12 @@
 package com.aiculabs.melchord.ui.searchResults;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
-import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.util.CustomItemClickListener;
 
 import java.util.ArrayList;
@@ -20,15 +17,14 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ResultViewHolder> {
 
     private List<HashMap<String, String>> mResults;
-    private CustomItemClickListener listener;
+    private CustomItemClickListener mListener;
 
     @Inject SearchResultAdapter(CustomItemClickListener listener) {
-        this.listener = listener;
+        mListener = listener;
         mResults = new ArrayList<>();
     }
 
@@ -46,7 +42,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(v, mViewHolder.getAdapterPosition());
+                mListener.onItemClick(v, mViewHolder.getAdapterPosition());
             }
         });
 
@@ -57,13 +53,13 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public void onBindViewHolder(ResultViewHolder holder, int position) {
         HashMap<String, String> result = mResults.get(position);
         if (result.get("name") != null) {
-            holder.titleTextView.setText(result.get("name").toString());
+            holder.titleTextView.setText(result.get("name"));
         }
         if (result.get("comment") != null && !result.get("comment").equals("")) {
-            holder.commentTextView.setText(result.get("comment").toString());
+            holder.commentTextView.setText(result.get("comment"));
         }
 
-        holder.mbid = result.get("mbid").toString();
+        holder.mbid = result.get("mbid");
     }
 
     @Override
@@ -71,7 +67,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         return mResults.size();
     }
 
-    class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ResultViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.row_search_result_title) TextView titleTextView;
         @Bind(R.id.row_search_result_comment) TextView commentTextView;
@@ -80,11 +76,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         public ResultViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(v.getContext(), mbid, 3);
         }
     }
 }

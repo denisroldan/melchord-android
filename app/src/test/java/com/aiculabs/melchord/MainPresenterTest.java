@@ -13,7 +13,6 @@ import java.util.List;
 
 import rx.Observable;
 import com.aiculabs.melchord.data.DataManager;
-import com.aiculabs.melchord.data.model.Ribot;
 import com.aiculabs.melchord.test.common.TestDataFactory;
 import com.aiculabs.melchord.ui.main.MainMvpView;
 import com.aiculabs.melchord.ui.main.MainPresenter;

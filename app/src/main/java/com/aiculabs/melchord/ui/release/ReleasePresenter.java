@@ -1,14 +1,9 @@
 package com.aiculabs.melchord.ui.release;
 
-import android.util.Log;
-
 import com.aiculabs.melchord.data.DataManager;
-import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.ui.base.BasePresenter;
-import com.aiculabs.melchord.ui.main.MainMvpView;
 
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -59,7 +54,7 @@ public class ReleasePresenter extends BasePresenter<ReleaseMvpView> {
                     @Override
                     public void onNext(Release release) {
                         if (release != null){
-                            getMvpView().showResults(release);
+                            getMvpView().showRelease(release);
                         }else {
                             getMvpView().showNoResults();
                         }

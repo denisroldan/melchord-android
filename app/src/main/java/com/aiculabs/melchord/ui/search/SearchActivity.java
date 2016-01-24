@@ -2,7 +2,6 @@ package com.aiculabs.melchord.ui.search;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
@@ -12,13 +11,8 @@ import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
-import com.aiculabs.melchord.ui.artist.ArtistActivity;
 import com.aiculabs.melchord.ui.base.BaseActivity;
-import com.aiculabs.melchord.ui.release.ReleaseActivity;
-import com.aiculabs.melchord.ui.release.ReleaseConstants;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
-import com.aiculabs.melchord.ui.searchResults.SearchResultsPresenter;
-import com.aiculabs.melchord.ui.song.SongActivity;
 import com.aiculabs.melchord.util.DialogFactory;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -102,13 +96,13 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         // En caso de tener una lista de "cosas" sería necesario aquí vaciar el adapter
         // y decirle al adapter que se actualice
         animateUItoInitialState();
-        Toast.makeText(this, R.string.empty_artists_or_songs, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.empty_search_results, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showError() {
         animateUItoErrorState();
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_artists))
+        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_search_results))
                 .show();
     }
 

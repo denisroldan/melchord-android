@@ -8,6 +8,7 @@ import com.aiculabs.melchord.ui.release.ReleaseActivity;
 import com.aiculabs.melchord.ui.search.SearchActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
 import com.aiculabs.melchord.ui.song.SongActivity;
+import com.aiculabs.melchord.ui.tab.TabActivity;
 
 /**
  * This component inject dependencies to all Activities across the application
@@ -20,4 +21,5 @@ public interface ActivityComponent {
     void inject(ArtistActivity artistActivity);
     void inject(ReleaseActivity releaseActivity);
     void inject(SongActivity songActivity);
+    void inject(TabActivity tabActivity);
 }
