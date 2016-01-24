@@ -1,26 +1,18 @@
 package com.aiculabs.melchord.ui.song;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
-import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.data.model.Song;
 import com.aiculabs.melchord.ui.base.BaseActivity;
-import com.aiculabs.melchord.ui.release.ReleaseActivity;
 import com.aiculabs.melchord.ui.tab.TabActivity;
 import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.aiculabs.melchord.util.DialogFactory;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -67,6 +59,12 @@ public class SongActivity extends BaseActivity implements SongMvpView {
         mSong = song;
         mSongAdapter.setTabs(song.getTabSet());
         mSongAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showNotabs() {
+        //animateUItoInitialState();
+        Toast.makeText(this, R.string.message_no_tabs, Toast.LENGTH_LONG).show();
     }
 
     @Override

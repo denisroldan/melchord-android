@@ -43,7 +43,12 @@ public class SongPresenter extends BasePresenter<SongMvpView> {
 
                     @Override
                     public void onNext(Song song) {
-                        getMvpView().showSong(song);
+
+                        if (song.getTabSet().isEmpty()) {
+                            getMvpView().showNotabs();
+                        } else {
+                            getMvpView().showSong(song);
+                        }
                     }
                 });
     }

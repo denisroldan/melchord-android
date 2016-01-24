@@ -14,6 +14,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.Release;
@@ -104,6 +105,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
     public void showNoResults() {
         mReleaseAdapter.setSongs(Collections.<Song>emptyList());
         mReleaseAdapter.notifyDataSetChanged();
+        Toast.makeText(this, R.string.empty_release, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -53,7 +53,7 @@ public class ReleasePresenter extends BasePresenter<ReleaseMvpView> {
 
                     @Override
                     public void onNext(Release release) {
-                        if (release != null){
+                        if (release != null && !release.getSongSet().isEmpty()){
                             getMvpView().showRelease(release);
                         }else {
                             getMvpView().showNoResults();

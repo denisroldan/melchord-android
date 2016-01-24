@@ -12,6 +12,8 @@
     <string name="error_loading_song">There was a problem loading the song</string>
     <string name="error_loading_tab">There was a problem loading the tab</string>
     <string name="empty_search_results">The search didn\'t yield any result</string>
+    <string name="empty_release">Sorry, we don\'t have any songs for this release</string>
+    <string name="message_no_tabs">We don\'t have any tabs for this song</string>
     <string name="title_activity_search">melChord</string>
     <string name="title_activity_artist">Resultados</string>
     <string name="logo">Logo</string>
