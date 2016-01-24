@@ -40,7 +40,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public ResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_search_result, parent, false);
+                .inflate(R.layout.item_search_result, parent, false);
         final ResultViewHolder mViewHolder = new ResultViewHolder(itemView);
 
         itemView.setOnClickListener(new View.OnClickListener() {
