@@ -56,7 +56,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseVie
                 launched = release.getLaunched();
             }
             if (release.getThumbnail() != null) {
-                // TODO: Poner un fondaco en error
                 Picasso.with(holder.releaseImage.getContext()).load(release.getThumbnail()).error(R.drawable.bg).into(holder.releaseImage);
             } else {
                 holder.releaseImage.setImageResource(0);
@@ -75,9 +74,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseVie
 
         class ReleaseViewHolder extends RecyclerView.ViewHolder {
 
-            @Bind(R.id.row_release_title) TextView releaseTitle;
-            @Bind(R.id.row_release_date) TextView releaseDate;
-            @Bind(R.id.row_release_image) ImageView releaseImage;
+            @Bind(R.id.release_name) TextView releaseTitle;
+            @Bind(R.id.release_date) TextView releaseDate;
+            @Bind(R.id.releaseImageView) ImageView releaseImage;
 
             public ReleaseViewHolder(View itemView) {
                 super(itemView);

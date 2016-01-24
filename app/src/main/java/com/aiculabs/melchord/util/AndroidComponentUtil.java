@@ -5,6 +5,10 @@ import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
+import android.os.Build;
+import android.view.Display;
+import android.view.WindowManager;
 
 public final class AndroidComponentUtil {
 

@@ -1,10 +1,18 @@
 package com.aiculabs.melchord.ui.artist;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.aiculabs.melchord.R;
@@ -14,6 +22,7 @@ import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.ui.release.ReleaseActivity;
 import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.aiculabs.melchord.util.DialogFactory;
+import com.aiculabs.melchord.util.MyLinearLayoutManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,8 +38,19 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView{
     private ArtistAdapter mArtistAdapter;
     private Artist mArtist;
 
-    @Bind(R.id.artist_top_image_view) ImageView artistImageView;
+    String title, mbid, image_url;
+
+
     @Bind(R.id.releases_recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.artist_toolbar) Toolbar artist_Toolbar;
+
+
+    @Bind (R.id.artist_toolbar_layout)
+    CollapsingToolbarLayout toolbarLayout;
+
+    @Bind (R.id.artist_backdrop)
+    ImageView backdrop;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +69,20 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView{
         });
 
         mRecyclerView.setAdapter(mArtistAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final MyLinearLayoutManager layoutManager = new MyLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false, getScreenHeight(this));
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setHasFixedSize(false);
         mArtistPresenter.attachView(this);
-        mArtistPresenter.getData(getIntent().getStringExtra("mbid"));
+
+        setSupportActionBar(artist_Toolbar);
+
+        Intent intent = getIntent();
+        mbid = intent.getStringExtra(ArtistConstants.ARTIST_INTENT_MBID_TAG);
+        title = getString(R.string.loading_artist_title);
+        refreshUI();
+
+        mArtistPresenter.getData(mbid);
     }
 
     @Override
@@ -63,6 +94,10 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView{
     @Override
     public void showArtist(Artist artist) {
         mArtist = artist;
+        title = artist.getName();
+        if (artist.getLargeImage() != null) image_url = artist.getLargeImage();
+        refreshUI();
+
         List<Release> filteredReleases = new ArrayList<>();
         for (Release release: artist.getReleaseSet()) {
             if (release.getType().equals("Album")) {
@@ -72,11 +107,34 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView{
         artist.setReleaseSet(filteredReleases);
         mArtistAdapter.setReleases(artist.getReleaseSet());
         mArtistAdapter.notifyDataSetChanged();
-        Picasso.with(this).load(artist.getLargeImage()).error(R.drawable.bg).into(artistImageView);
     }
 
     @Override
     public void showError() {
         DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_artist)).show();
     }
+
+    private void refreshUI() {
+        toolbarLayout.setTitle(title);
+        backdrop.setColorFilter(Color.argb(30, 0, 0, 0));
+        Picasso.with(this).load(image_url).error(R.drawable.bg).into(backdrop);
+    }
+
+    public int getScreenHeight(Context context) {
+        int measuredHeight;
+        Point size = new Point();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            wm.getDefaultDisplay().getSize(size);
+            measuredHeight = size.y * 3 / 2;
+        } else {
+            Display d = wm.getDefaultDisplay();
+            measuredHeight = d.getHeight();
+        }
+
+        return measuredHeight;
+    }
+
+
 }
