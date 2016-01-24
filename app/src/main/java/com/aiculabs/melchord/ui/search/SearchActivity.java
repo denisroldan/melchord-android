@@ -38,6 +38,10 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     @OnClick (R.id.fab)
     void searchBtnPushed(){
         if (queryToSearch.getText().toString().length() == 0) {
+            animateUItoErrorState();
+
+            DialogFactory.createGenericErrorDialog(this, "Really? You don\'t want to search anything?")
+                    .show();
             return;
         }
         animateUItoLoadingState();
