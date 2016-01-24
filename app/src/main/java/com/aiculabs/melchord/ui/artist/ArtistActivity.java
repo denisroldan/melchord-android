@@ -14,6 +14,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.Artist;
@@ -33,7 +34,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ArtistActivity extends BaseActivity implements ArtistMvpView{
+public class ArtistActivity extends BaseActivity implements ArtistMvpView {
     @Inject ArtistPresenter mArtistPresenter;
     private ArtistAdapter mArtistAdapter;
     private Artist mArtist;
@@ -107,6 +108,11 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView{
         artist.setReleaseSet(filteredReleases);
         mArtistAdapter.setReleases(artist.getReleaseSet());
         mArtistAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void emptyArtist() {
+        Toast.makeText(this, R.string.empty_artist, Toast.LENGTH_LONG).show();
     }
 
     @Override

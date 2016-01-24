@@ -42,7 +42,13 @@ public class ArtistPresenter extends BasePresenter<ArtistMvpView> {
                     public void onError(Throwable e) {getMvpView().showError();}
 
                     @Override
-                    public void onNext(Artist artist) {getMvpView().showArtist(artist);}
+                    public void onNext(Artist artist) {
+                        if (artist.getReleaseSet().isEmpty()) {
+                            getMvpView().emptyArtist();
+                        } else {
+                            getMvpView().showArtist(artist);
+                        }
+                    }
                 });
     }
 }

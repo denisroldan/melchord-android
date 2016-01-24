@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ArtistMvpView extends MvpView {
     void showArtist(Artist artist);
+    void emptyArtist();
     void showError();
 }
