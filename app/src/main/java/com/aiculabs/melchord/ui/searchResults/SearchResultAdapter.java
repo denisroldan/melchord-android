@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
-import com.aiculabs.melchord.data.model.ArtistSearch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +34,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public ResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_search_result, parent, false);
+                .inflate(R.layout.item_search_result, parent, false);
         return new ResultViewHolder(itemView);
     }
 

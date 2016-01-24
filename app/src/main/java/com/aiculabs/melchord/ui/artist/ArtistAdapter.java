@@ -42,7 +42,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseVie
         @Override
         public ReleaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.row_release, parent, false);
+                    .inflate(R.layout.item_release, parent, false);
             return new ReleaseViewHolder(itemView);
         }
 
