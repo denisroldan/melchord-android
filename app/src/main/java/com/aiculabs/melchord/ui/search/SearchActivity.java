@@ -2,17 +2,22 @@ package com.aiculabs.melchord.ui.search;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
+import com.aiculabs.melchord.ui.tab.TabToast;
 import com.aiculabs.melchord.util.DialogFactory;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -26,14 +31,20 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.championswimmer.sfg.lib.SimpleFingerGestures;
 
 public class SearchActivity extends BaseActivity implements SearchMvpView {
+
+
+    private SimpleFingerGestures mySfg = new SimpleFingerGestures();
 
     @Inject SearchPresenter mSearchPresenter;
 
     @BindView(R.id.queryEditText) EditText queryToSearch;
     @BindView(R.id.progressBar) ProgressBar spinner;
     @BindView(R.id.logo) ImageView logoIV;
+    @BindView(R.id.tab_coordinator_layout)
+    CoordinatorLayout tabCoordinator;
 
     @OnClick (R.id.fab)
     void searchBtnPushed(){
@@ -58,7 +69,45 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    }
+
+        mySfg.setOnFingerGestureListener(new SimpleFingerGestures.OnFingerGestureListener() {
+            @Override
+            public boolean onSwipeUp(int i, long l, double v) {
+                return false;
+            }
+
+            @Override
+            public boolean onSwipeDown(int i, long l, double v) {
+                return false;
+            }
+
+            @Override
+            public boolean onSwipeLeft(int i, long l, double v) {
+                return false;
+            }
+
+            @Override
+            public boolean onSwipeRight(int i, long l, double v) {
+                return false;
+            }
+
+            @Override
+            public boolean onPinch(int i, long l, double v) {
+                return false;
+            }
+
+            @Override
+            public boolean onUnpinch(int i, long l, double v) {
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTap(int fingers) {
+                return false;
+            }
+        });
+
+        }
 
     @Override
     protected void onStart() {
