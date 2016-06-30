@@ -16,7 +16,7 @@ import com.aiculabs.melchord.util.DialogFactory;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SongActivity extends BaseActivity implements SongMvpView {
@@ -24,12 +24,12 @@ public class SongActivity extends BaseActivity implements SongMvpView {
     private SongAdapter mSongAdapter;
     private Song mSong;
 
-    @Bind(R.id.tabs_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.tabs_recycler_view) RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
+        activityComponent().inject(this);
         setContentView(R.layout.activity_song);
         ButterKnife.bind(this);
 

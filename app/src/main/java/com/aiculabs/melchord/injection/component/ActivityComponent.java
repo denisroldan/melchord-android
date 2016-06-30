@@ -1,6 +1,6 @@
 package com.aiculabs.melchord.injection.component;
 
-import dagger.Component;
+import dagger.Subcomponent;
 import com.aiculabs.melchord.injection.PerActivity;
 import com.aiculabs.melchord.injection.module.ActivityModule;
 import com.aiculabs.melchord.ui.artist.ArtistActivity;
@@ -14,7 +14,7 @@ import com.aiculabs.melchord.ui.tab.TabActivity;
  * This component inject dependencies to all Activities across the application
  */
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
+@Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent {
     void inject(SearchActivity searchActivity);
     void inject(SearchResultsActivity searchResultsActivity);

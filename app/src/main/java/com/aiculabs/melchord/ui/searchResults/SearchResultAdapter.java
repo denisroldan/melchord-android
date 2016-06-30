@@ -15,7 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ResultViewHolder> {
@@ -50,7 +50,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     }
 
     @Override
-    public void onBindViewHolder(ResultViewHolder holder, int position) {
+    public void onBindViewHolder(final ResultViewHolder holder, int position) {
         HashMap<String, String> result = mResults.get(position);
         if (result.get("name") != null) {
             holder.titleTextView.setText(result.get("name"));
@@ -69,8 +69,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     class ResultViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.row_search_result_title) TextView titleTextView;
-        @Bind(R.id.row_search_result_comment) TextView commentTextView;
+        @BindView(R.id.row_search_result_title) TextView titleTextView;
+        @BindView(R.id.row_search_result_comment) TextView commentTextView;
         public String mbid;
 
         public ResultViewHolder(View itemView) {

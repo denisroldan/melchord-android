@@ -15,7 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.SongViewHolder> {
@@ -68,11 +68,11 @@ public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.SongView
 
     class SongViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.song_trackNumberTextView)
+        @BindView(R.id.song_trackNumberTextView)
         TextView trackNumberTextView;
-        @Bind(R.id.song_name)
+        @BindView(R.id.song_name)
         TextView nameTextView;
-        @Bind(R.id.song_duration)
+        @BindView(R.id.song_duration)
         TextView durationTextView;
 
         public SongViewHolder(View itemView) {

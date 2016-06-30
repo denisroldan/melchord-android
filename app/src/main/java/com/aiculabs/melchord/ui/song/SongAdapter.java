@@ -15,7 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.TabViewHolder> {
@@ -64,8 +64,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.TabViewHolder>
 
     class TabViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.tab_type) TextView tabTypeTextView;
-        @Bind(R.id.tab_name) TextView tabNameTextView;
+        @BindView(R.id.tab_type) TextView tabTypeTextView;
+        @BindView(R.id.tab_name) TextView tabNameTextView;
 
         public TabViewHolder(View itemView) {
             super(itemView);

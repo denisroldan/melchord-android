@@ -24,14 +24,15 @@ import com.aiculabs.melchord.ui.release.ReleaseActivity;
 import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.aiculabs.melchord.util.DialogFactory;
 import com.aiculabs.melchord.util.MyLinearLayoutManager;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ArtistActivity extends BaseActivity implements ArtistMvpView {
@@ -42,21 +43,21 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView {
     String title, mbid, image_url;
 
 
-    @Bind(R.id.releases_recycler_view) RecyclerView mRecyclerView;
-    @Bind(R.id.artist_toolbar) Toolbar artist_Toolbar;
+    @BindView(R.id.releases_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.artist_toolbar) Toolbar artist_Toolbar;
 
 
-    @Bind (R.id.artist_toolbar_layout)
+    @BindView (R.id.artist_toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
 
-    @Bind (R.id.artist_backdrop)
+    @BindView (R.id.artist_backdrop)
     ImageView backdrop;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
+        activityComponent().inject(this);
         setContentView(R.layout.activity_artist);
         ButterKnife.bind(this);
 
@@ -123,7 +124,7 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView {
     private void refreshUI() {
         toolbarLayout.setTitle(title);
         backdrop.setColorFilter(Color.argb(30, 0, 0, 0));
-        Picasso.with(this).load(image_url).error(R.drawable.bg).into(backdrop);
+        Glide.with(this).load(image_url).error(R.drawable.bg).into(backdrop);
     }
 
     public int getScreenHeight(Context context) {

@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -31,9 +31,9 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Inject SearchPresenter mSearchPresenter;
 
-    @Bind(R.id.queryEditText) EditText queryToSearch;
-    @Bind(R.id.progressBar) ProgressBar spinner;
-    @Bind(R.id.logo) ImageView logoIV;
+    @BindView(R.id.queryEditText) EditText queryToSearch;
+    @BindView(R.id.progressBar) ProgressBar spinner;
+    @BindView(R.id.logo) ImageView logoIV;
 
     @OnClick (R.id.fab)
     void searchBtnPushed(){
@@ -51,7 +51,7 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
+        activityComponent().inject(this);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         mSearchPresenter.attachView(this);

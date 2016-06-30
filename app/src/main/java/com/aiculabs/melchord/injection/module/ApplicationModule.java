@@ -7,7 +7,6 @@ import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.aiculabs.melchord.data.remote.SongService;
 import com.aiculabs.melchord.data.remote.TabService;
-import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
@@ -36,12 +35,6 @@ public class ApplicationModule {
     @ApplicationContext
     Context provideContext() {
         return mApplication;
-    }
-
-    @Provides
-    @Singleton
-    Bus provideEventBus() {
-        return new Bus();
     }
 
     @Provides

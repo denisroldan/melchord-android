@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
-import rx.functions.Action0;
 import rx.functions.Func1;
 import com.aiculabs.melchord.data.local.DatabaseHelper;
 import com.aiculabs.melchord.data.local.PreferencesHelper;
@@ -19,7 +18,6 @@ import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.aiculabs.melchord.data.remote.SongService;
 import com.aiculabs.melchord.data.remote.TabService;
-import com.aiculabs.melchord.util.EventPosterHelper;
 
 @Singleton
 public class DataManager {
@@ -40,19 +38,16 @@ public class DataManager {
     private final TabService mTabService;
     private final DatabaseHelper mDatabaseHelper;
     private final PreferencesHelper mPreferencesHelper;
-    private final EventPosterHelper mEventPoster;
-
 
     @Inject
     public DataManager(ArtistService artistSearchService, ReleaseService releaseService, SongService songService, TabService tabService, PreferencesHelper preferencesHelper,
-                       DatabaseHelper databaseHelper, EventPosterHelper eventPosterHelper) {
+                       DatabaseHelper databaseHelper) {
         mArtistService = artistSearchService;
         mReleaseService = releaseService;
         mSongService = songService;
         mTabService = tabService;
         mPreferencesHelper = preferencesHelper;
         mDatabaseHelper = databaseHelper;
-        mEventPoster = eventPosterHelper;
     }
 
 
@@ -84,16 +79,6 @@ public class DataManager {
 
     public Observable<Tab> getTab(final Integer id) {
         return mTabService.getTab(id);
-    }
-
-    /// Helper method to post events from doOnCompleted.
-    private Action0 postEventAction(final Object event) {
-        return new Action0() {
-            @Override
-            public void call() {
-                mEventPoster.postEventSafely(event);
-            }
-        };
     }
 
 }

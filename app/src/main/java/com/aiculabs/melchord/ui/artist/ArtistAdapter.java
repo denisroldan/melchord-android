@@ -10,14 +10,14 @@ import android.widget.TextView;
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.util.CustomItemClickListener;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseViewHolder> {
@@ -56,7 +56,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseVie
                 launched = release.getLaunched();
             }
             if (release.getThumbnail() != null) {
-                Picasso.with(holder.releaseImage.getContext()).load(release.getThumbnail()).error(R.drawable.bg).into(holder.releaseImage);
+                Glide.with(holder.releaseImage.getContext()).load(release.getThumbnail()).error(R.drawable.bg).into(holder.releaseImage);
             } else {
                 holder.releaseImage.setImageResource(0);
             }
@@ -74,9 +74,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseVie
 
         class ReleaseViewHolder extends RecyclerView.ViewHolder {
 
-            @Bind(R.id.release_name) TextView releaseTitle;
-            @Bind(R.id.release_date) TextView releaseDate;
-            @Bind(R.id.releaseImageView) ImageView releaseImage;
+            @BindView(R.id.release_name) TextView releaseTitle;
+            @BindView(R.id.release_date) TextView releaseDate;
+            @BindView(R.id.releaseImageView) ImageView releaseImage;
 
             public ReleaseViewHolder(View itemView) {
                 super(itemView);

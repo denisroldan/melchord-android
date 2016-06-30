@@ -7,7 +7,7 @@ import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.aiculabs.melchord.data.remote.SongService;
 import com.aiculabs.melchord.data.remote.TabService;
-import com.squareup.otto.Bus;
+import com.aiculabs.melchord.util.RxEventBus;
 
 import javax.inject.Singleton;
 
@@ -34,6 +34,5 @@ public interface ApplicationComponent {
     PreferencesHelper preferencesHelper();
     DatabaseHelper databaseHelper();
     DataManager dataManager();
-    Bus eventBus();
-
+    RxEventBus eventBus();
 }

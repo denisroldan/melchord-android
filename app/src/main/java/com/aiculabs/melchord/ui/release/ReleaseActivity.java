@@ -24,13 +24,13 @@ import com.aiculabs.melchord.ui.song.SongActivity;
 import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.aiculabs.melchord.util.DialogFactory;
 import com.aiculabs.melchord.util.MyLinearLayoutManager;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.Collections;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
@@ -42,19 +42,19 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
     private ReleaseAdapter mReleaseAdapter;
     private Release mRelease;
 
-    @Bind (R.id.toolbar_layout)
+    @BindView (R.id.toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
 
-    @Bind (R.id.backdrop)
+    @BindView (R.id.backdrop)
     ImageView backdrop;
 
-    @Bind(R.id.songs_recycler_view)
+    @BindView(R.id.songs_recycler_view)
     RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
+        activityComponent().inject(this);
         setContentView(R.layout.activity_release);
         ButterKnife.bind(this);
 
@@ -117,7 +117,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
     private void refreshUI() {
         toolbarLayout.setTitle(title);
         backdrop.setColorFilter(Color.argb(30, 0, 0, 0));
-        Picasso.with(this).load(image_url).error(R.drawable.bg).into(backdrop);
+        Glide.with(this).load(image_url).error(R.drawable.bg).into(backdrop);
     }
 
     private int getScreenHeight(Context context) {

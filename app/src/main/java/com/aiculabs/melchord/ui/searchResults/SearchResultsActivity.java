@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchResultsActivity extends BaseActivity implements SearchResultsMvpView {
@@ -25,12 +25,12 @@ public class SearchResultsActivity extends BaseActivity implements SearchResults
     @Inject SearchResultsPresenter mSearchResultsPresenter;
     private SearchResultAdapter mSearchResultsAdapter;
 
-    @Bind(R.id.search_results_recycler_view) RecyclerView searchResultsRecyclerView;
+    @BindView(R.id.search_results_recycler_view) RecyclerView searchResultsRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
+        activityComponent().inject(this);
         setContentView(R.layout.activity_search_results);
         ButterKnife.bind(this);
 
