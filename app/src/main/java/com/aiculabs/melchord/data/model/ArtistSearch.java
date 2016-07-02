@@ -21,9 +21,9 @@ public class ArtistSearch {
     @SerializedName("score")
     @Expose
     private Integer score;
-    @SerializedName("mbid")
+    @SerializedName("id")
     @Expose
-    private String mbid;
+    private String id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -35,19 +35,19 @@ public class ArtistSearch {
     }
 
     /**
-     * @param mbid
+     * @param id
      * @param area
      * @param name
      * @param score
      * @param type
      * @param comment
      */
-    public ArtistSearch(String area, String comment, String type, Integer score, String mbid, String name) {
+    public ArtistSearch(String area, String comment, String type, Integer score, String id, String name) {
         this.area = area;
         this.comment = comment;
         this.type = type;
         this.score = score;
-        this.mbid = mbid;
+        this.id = id;
         this.name = name;
     }
 
@@ -108,17 +108,17 @@ public class ArtistSearch {
     }
 
     /**
-     * @return The mbid
+     * @return The id
      */
-    public String getMbid() {
-        return mbid;
+    public String getId() {
+        return id;
     }
 
     /**
-     * @param mbid The mbid
+     * @param id The id
      */
-    public void setMbid(String mbid) {
-        this.mbid = mbid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

@@ -23,7 +23,6 @@ import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.ui.song.SongActivity;
 import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.aiculabs.melchord.util.DialogFactory;
-import com.aiculabs.melchord.util.MyLinearLayoutManager;
 import com.bumptech.glide.Glide;
 
 import java.util.Collections;
@@ -36,6 +35,9 @@ import butterknife.ButterKnife;
 public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
 
     String title, mbid, image_url;
+
+    private RecyclerView.LayoutManager mLayoutManager;
+
 
     @Inject
     ReleasePresenter mReleasePresenter;
@@ -66,11 +68,15 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
                 startActivity(i);
             }
         });
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setAutoMeasureEnabled(true);
+
+
         mRecyclerView.setAdapter(mReleaseAdapter);
-        final MyLinearLayoutManager layoutManager = new MyLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false, getScreenHeight(this));
-        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
         mReleasePresenter.attachView(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -118,22 +124,6 @@ public class ReleaseActivity extends BaseActivity implements ReleaseMvpView {
         toolbarLayout.setTitle(title);
         backdrop.setColorFilter(Color.argb(30, 0, 0, 0));
         Glide.with(this).load(image_url).error(R.drawable.bg).into(backdrop);
-    }
-
-    private int getScreenHeight(Context context) {
-        int measuredHeight;
-        Point size = new Point();
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            wm.getDefaultDisplay().getSize(size);
-            measuredHeight = size.y * 3 / 2;
-        } else {
-            Display d = wm.getDefaultDisplay();
-            measuredHeight = d.getHeight();
-        }
-
-        return measuredHeight;
     }
 
 }

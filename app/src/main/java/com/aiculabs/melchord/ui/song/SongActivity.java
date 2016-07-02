@@ -37,7 +37,7 @@ public class SongActivity extends BaseActivity implements SongMvpView {
             @Override
             public void onItemClick(View v, int position) {
                 Intent i = new Intent(getBaseContext(), TabActivity.class);
-                i.putExtra("id", mSong.getTabSet().get(position).getId());
+                i.putExtra("mbid", mSong.getTabSet().get(position).getId());
                 startActivity(i);
             }
         });

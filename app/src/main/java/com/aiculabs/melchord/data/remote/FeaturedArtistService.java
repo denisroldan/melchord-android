@@ -30,7 +30,6 @@ public interface FeaturedArtistService {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(FeaturedArtistService.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
             return retrofit.create(FeaturedArtistService.class);
         }

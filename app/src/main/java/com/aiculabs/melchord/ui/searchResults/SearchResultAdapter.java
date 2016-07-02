@@ -59,7 +59,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             holder.commentTextView.setText(result.get("comment"));
         }
 
-        holder.mbid = result.get("mbid");
+        holder.id = result.get("id");
     }
 
     @Override
@@ -71,7 +71,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         @BindView(R.id.row_search_result_title) TextView titleTextView;
         @BindView(R.id.row_search_result_comment) TextView commentTextView;
-        public String mbid;
+        public String id;
 
         public ResultViewHolder(View itemView) {
             super(itemView);

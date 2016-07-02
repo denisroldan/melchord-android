@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
+import com.aiculabs.melchord.ui.artist.ArtistConstants;
 import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
 import com.aiculabs.melchord.ui.tab.TabToast;
@@ -32,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.championswimmer.sfg.lib.SimpleFingerGestures;
+import timber.log.Timber;
 
 public class SearchActivity extends BaseActivity implements SearchMvpView {
 
@@ -78,6 +83,12 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
             @Override
             public boolean onSwipeDown(int i, long l, double v) {
+                if (i==2){
+
+                    Log.wtf("melCHORD", "uka uka");
+                    Log.wtf("melCHORD", Long.toString(l));
+                    Log.wtf("melCHORD", Double.toString(v));
+                }
                 return false;
             }
 
@@ -107,6 +118,15 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
             }
         });
 
+        queryToSearch.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        queryToSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    searchBtnPushed();
+                }
+                return false;
+            }
+        });
         }
 
     @Override
@@ -134,10 +154,11 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
         for (ArtistSearch artistSearchResult: artistSearches) {
             HashMap<String, String> artistSearch = new HashMap<>();
-            artistSearch.put("name", artistSearchResult.getName());
-            artistSearch.put("mbid", artistSearchResult.getMbid());
-            artistSearch.put("comment", artistSearchResult.getComment());
+            artistSearch.put(ArtistConstants.ARTIST_INTENT_NAME_TAG, artistSearchResult.getName());
+            artistSearch.put(ArtistConstants.ARTIST_INTENT_MBID_TAG, artistSearchResult.getId());
+            artistSearch.put(ArtistConstants.ARTIST_INTENT_COMMENT_TAG, artistSearchResult.getComment());
             results.add(artistSearch);
+            Timber.wtf(artistSearch.toString());
         }
 
         i.putExtra("search_results", results);
