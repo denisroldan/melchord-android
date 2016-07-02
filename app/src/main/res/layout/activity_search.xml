@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/tab_coordinator_layout"
-    tools:context="com.aiculabs.melchord.ui.search.SearchActivity">
+    tools:context="com.aiculabs.melchord.ui.search.SearchActivity"
+    android:background="#000000">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

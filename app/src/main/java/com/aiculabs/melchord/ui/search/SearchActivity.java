@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.ArtistSearch;
+import com.aiculabs.melchord.ui.artist.ArtistActivity;
 import com.aiculabs.melchord.ui.artist.ArtistConstants;
 import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
@@ -143,7 +144,6 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Override
     public void showResults(List<ArtistSearch> artistSearches) {
-        Intent i = new Intent(this, SearchResultsActivity.class);
         //Intent i = new Intent(this, SongActivity.class);
 
         // For Release testing purposes
@@ -152,17 +152,25 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
         ArrayList<HashMap<String, String>> results = new ArrayList<>();
 
+        Intent i = new Intent(this, SearchResultsActivity.class);
         for (ArtistSearch artistSearchResult: artistSearches) {
             HashMap<String, String> artistSearch = new HashMap<>();
             artistSearch.put(ArtistConstants.ARTIST_INTENT_NAME_TAG, artistSearchResult.getName());
             artistSearch.put(ArtistConstants.ARTIST_INTENT_MBID_TAG, artistSearchResult.getId());
             artistSearch.put(ArtistConstants.ARTIST_INTENT_COMMENT_TAG, artistSearchResult.getComment());
             results.add(artistSearch);
-            Timber.wtf(artistSearch.toString());
         }
 
-        i.putExtra("search_results", results);
-        startActivity(i);
+        if (results.size() == 1) {
+            Intent i2 = new Intent(this, ArtistActivity.class);
+            i2.putExtra("mbid", results.get(0).get("mbid"));
+            startActivity(i2);
+        }else{
+            i.putExtra("search_results", results);
+            startActivity(i);
+        }
+
+
     }
 
     @Override

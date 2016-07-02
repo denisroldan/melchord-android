@@ -12,7 +12,6 @@
     tools:context="com.aiculabs.melchord.ui.search.SearchActivity"
     tools:showIn="@layout/activity_search"
     android:background="@drawable/bg"
-    android:backgroundTint="#63000000"
     android:backgroundTintMode="add">
 
     <ProgressBar

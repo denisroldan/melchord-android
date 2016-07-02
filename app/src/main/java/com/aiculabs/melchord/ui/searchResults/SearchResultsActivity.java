@@ -16,16 +16,20 @@ import com.aiculabs.melchord.util.CustomItemClickListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchResultsActivity extends BaseActivity implements SearchResultsMvpView {
 
-    @Inject SearchResultsPresenter mSearchResultsPresenter;
+    @Inject
+    SearchResultsPresenter mSearchResultsPresenter;
     private SearchResultAdapter mSearchResultsAdapter;
 
-    @BindView(R.id.search_results_recycler_view) RecyclerView searchResultsRecyclerView;
+    @BindView(R.id.search_results_recycler_view)
+    RecyclerView searchResultsRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +38,15 @@ public class SearchResultsActivity extends BaseActivity implements SearchResults
         setContentView(R.layout.activity_search_results);
         ButterKnife.bind(this);
 
-        final ArrayList<HashMap<String, String>> results = (ArrayList<HashMap<String, String>>)(getIntent().getSerializableExtra("search_results"));
+        final ArrayList<HashMap<String, String>> results = (ArrayList<HashMap<String, String>>) (getIntent().getSerializableExtra("search_results"));
 
         mSearchResultsAdapter = new SearchResultAdapter(new CustomItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Intent i = new Intent(getBaseContext(), ArtistActivity.class);
-                i.putExtra("mbid", results.get(position).get("mbid"));
-                startActivity(i);
+                goToArtist(results.get(position).get("mbid"));
             }
         });
+
         searchResultsRecyclerView.setAdapter(mSearchResultsAdapter);
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -60,5 +63,11 @@ public class SearchResultsActivity extends BaseActivity implements SearchResults
     @Override
     public void showResults(ArrayList<HashMap<String, String>> results) {
         mSearchResultsAdapter.setResults(results);
+    }
+
+    private void goToArtist(String mbid) {
+        Intent i = new Intent(getBaseContext(), ArtistActivity.class);
+        i.putExtra("mbid", mbid);
+        startActivity(i);
     }
 }
