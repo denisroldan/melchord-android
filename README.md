@@ -17,6 +17,7 @@ Libraries and tools included:
 - [Robolectric](http://robolectric.org/)
 - [Mockito](http://mockito.org/)
 - [Checkstyle](http://checkstyle.sourceforge.net/), [PMD](https://pmd.github.io/) and [Findbugs](http://findbugs.sourceforge.net/) for code analysis
+- [YoYo] Easy animations
 
 ## Requirements
 
