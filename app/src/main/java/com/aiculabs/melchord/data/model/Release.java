@@ -15,9 +15,9 @@ public class Release {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("launched")
+    @SerializedName("date")
     @Expose
-    private String launched;
+    private String date;
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
@@ -41,17 +41,17 @@ public class Release {
     /**
      *
      * @param songSet
-     * @param launched
+     * @param date
      * @param title
      * @param thumbnail
      * @param mbid
      * @param largeImage
      * @param type
      */
-    public Release(String mbid, String title, String launched, String thumbnail, String largeImage, String type, List<Song> songSet) {
+    public Release(String mbid, String title, String date, String thumbnail, String largeImage, String type, List<Song> songSet) {
         this.mbid = mbid;
         this.title = title;
-        this.launched = launched;
+        this.date = date;
         this.thumbnail = thumbnail;
         this.largeImage = largeImage;
         this.type = type;
@@ -97,19 +97,19 @@ public class Release {
     /**
      *
      * @return
-     * The launched
+     * The date
      */
-    public String getLaunched() {
-        return launched;
+    public String getDate() {
+        return date;
     }
 
     /**
      *
-     * @param launched
-     * The launched
+     * @param date
+     * The date
      */
-    public void setLaunched(String launched) {
-        this.launched = launched;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     /**

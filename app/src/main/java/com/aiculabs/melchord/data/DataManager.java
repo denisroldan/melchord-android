@@ -65,6 +65,10 @@ public class DataManager {
                 });
     }
 
+    public Observable<List<Artist>> getFeaturedArtists(){
+        return mArtistService.getFeaturedArtists();
+    }
+
     public Observable<Release> getReleaseResults(final String mbid) {
         return mReleaseService.getRelease(mbid);
     }

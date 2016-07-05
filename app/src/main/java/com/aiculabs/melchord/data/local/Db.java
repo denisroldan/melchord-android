@@ -3,61 +3,48 @@ package com.aiculabs.melchord.data.local;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import java.util.Date;
-
-import com.aiculabs.melchord.data.model.Name;
-import com.aiculabs.melchord.data.model.Profile;
+import com.aiculabs.melchord.data.model.Tab;
 
 public class Db {
 
     public Db() { }
 
-    public abstract static class RibotProfileTable {
-        public static final String TABLE_NAME = "ribot_profile";
+    public abstract static class MelchordTabTable {
+        public static final String TABLE_NAME = "melchord_tab";
 
-        public static final String COLUMN_EMAIL = "email";
-        public static final String COLUMN_FIRST_NAME = "first_name";
-        public static final String COLUMN_LAST_NAME = "last_name";
-        public static final String COLUMN_HEX_COLOR = "hex_color";
-        public static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";
-        public static final String COLUMN_AVATAR = "avatar";
-        public static final String COLUMN_BIO = "bio";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_URL = "url";
+        public static final String COLUMN_CONTENT = "date_of_birth";
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_EMAIL + " TEXT PRIMARY KEY, " +
-                        COLUMN_FIRST_NAME + " TEXT NOT NULL, " +
-                        COLUMN_LAST_NAME + " TEXT NOT NULL, " +
-                        COLUMN_HEX_COLOR + " TEXT NOT NULL, " +
-                        COLUMN_DATE_OF_BIRTH + " INTEGER NOT NULL, " +
-                        COLUMN_AVATAR + " TEXT, " +
-                        COLUMN_BIO + " TEXT" +
+                        COLUMN_ID + " INTEGER PRIMARY KEY, " +
+                        COLUMN_TITLE + " TEXT NOT NULL, " +
+                        COLUMN_TYPE + " TEXT NOT NULL, " +
+                        COLUMN_URL + " TEXT NOT NULL, " +
+                        COLUMN_CONTENT + " TEXT NOT NULL, " +
                 " ); ";
 
-        public static ContentValues toContentValues(Profile profile) {
+        public static ContentValues toContentValues(Tab tab) {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_EMAIL, profile.email);
-            values.put(COLUMN_FIRST_NAME, profile.name.first);
-            values.put(COLUMN_LAST_NAME, profile.name.last);
-            values.put(COLUMN_HEX_COLOR, profile.hexColor);
-            values.put(COLUMN_DATE_OF_BIRTH, profile.dateOfBirth.getTime());
-            values.put(COLUMN_AVATAR, profile.avatar);
-            if (profile.bio != null) values.put(COLUMN_BIO, profile.bio);
+            values.put(COLUMN_ID, tab.getId());
+            values.put(COLUMN_TITLE, tab.getTitle());
+            values.put(COLUMN_TYPE, tab.getType());
+            values.put(COLUMN_URL, tab.getUrl());
+            values.put(COLUMN_CONTENT, tab.getContent());
             return values;
         }
 
-        public static Profile parseCursor(Cursor cursor) {
-            Profile profile = new Profile();
-            profile.email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL));
-            profile.name = new Name();
-            profile.name.first = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FIRST_NAME));
-            profile.name.last = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LAST_NAME));
-            profile.hexColor = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HEX_COLOR));
-            long dobTime = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_DATE_OF_BIRTH));
-            profile.dateOfBirth = new Date(dobTime);
-            profile.avatar = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AVATAR));
-            profile.bio = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_BIO));
-            return profile;
+        public static Tab parseCursor(Cursor cursor) {
+            Tab tab = new Tab();
+            tab.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)));
+            tab.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE)));
+            tab.setType(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TYPE)));
+            tab.setUrl(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL)));
+            tab.setContent(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTENT)));
+            return tab;
         }
     }
 }

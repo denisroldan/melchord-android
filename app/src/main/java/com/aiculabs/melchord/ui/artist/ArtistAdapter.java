@@ -52,8 +52,8 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseVie
             Release release = mReleases.get(position);
             holder.releaseTitle.setText(release.getTitle());
             String launched = "";
-            if (release.getLaunched() != null) {
-                launched = release.getLaunched();
+            if (release.getDate() != null) {
+                launched = release.getDate();
             }
             if (release.getThumbnail() != null) {
                 Glide.with(holder.releaseImage.getContext()).load(release.getThumbnail()).error(R.drawable.bg).into(holder.releaseImage);

@@ -22,7 +22,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
         try {
-            db.execSQL(Db.RibotProfileTable.CREATE);
+            db.execSQL(Db.MelchordTabTable.CREATE);
             //Add other tables here
             db.setTransactionSuccessful();
         } finally {
