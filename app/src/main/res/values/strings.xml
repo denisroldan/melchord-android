@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">melChord</string>
+    <string name="app_name">melCHORD</string>
 
     <string name="action_settings">Settings</string>
 
@@ -110,4 +110,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="loading_artist_title">Loading artist...</string>
+    <string name="no_releases">No releases :(</string>
 </resources>

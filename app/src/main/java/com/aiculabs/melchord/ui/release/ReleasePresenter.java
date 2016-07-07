@@ -47,7 +47,7 @@ public class ReleasePresenter extends BasePresenter<ReleaseMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.e(e, "There was an error getting the release...");
+                        Timber.tag("ERROR").d(e.getMessage());
                         getMvpView().showError();
                     }
 

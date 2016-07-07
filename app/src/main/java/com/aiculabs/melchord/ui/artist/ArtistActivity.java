@@ -90,7 +90,7 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView {
         name = intent.getStringExtra(ArtistConstants.ARTIST_INTENT_NAME_TAG);
         comment = intent.getStringExtra(ArtistConstants.ARTIST_INTENT_COMMENT_TAG);
         title = getString(R.string.loading_artist_title);
-        Timber.wtf(mbid);
+        backdrop.setScaleType(ImageView.ScaleType.CENTER_CROP);
         refreshUI();
 
         mArtistPresenter.getData(mbid);
@@ -107,11 +107,13 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView {
         mArtist = artist;
         title = artist.getName();
         if (artist.getLargeImage() != null) image_url = artist.getLargeImage();
+
         refreshUI();
 
         List<Release> filteredReleases = new ArrayList<>();
+
         for (Release release : artist.getReleaseSet()) {
-            if (release.getType().equals("Album")) {
+            if (release.getType() == null || release.getType().equals("Album")) {
                 filteredReleases.add(release);
             }
         }
@@ -123,6 +125,7 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView {
     @Override
     public void emptyArtist() {
         Toast.makeText(this, R.string.empty_artist, Toast.LENGTH_LONG).show();
+        toolbarLayout.setTitle(getString(R.string.no_releases));
     }
 
     @Override
@@ -133,7 +136,12 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView {
     private void refreshUI() {
         toolbarLayout.setTitle(title);
         backdrop.setColorFilter(Color.argb(30, 0, 0, 0));
-        Glide.with(this).load(image_url).error(R.drawable.bg).into(backdrop);
+        Glide.with(this)
+                .load(image_url)
+                .placeholder(R.drawable.bg)
+                .centerCrop()
+                .error(R.drawable.bg)
+                .into(backdrop);
     }
 
 

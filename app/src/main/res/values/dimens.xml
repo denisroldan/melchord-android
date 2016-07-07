@@ -17,7 +17,7 @@
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="release_number_size">22sp</dimen>
-    <dimen name="release_name_size">22sp</dimen>
+    <dimen name="release_name_size">18sp</dimen>
     <dimen name="release_duration_size">14sp</dimen>
 
     <dimen name="song_number_size">22sp</dimen>

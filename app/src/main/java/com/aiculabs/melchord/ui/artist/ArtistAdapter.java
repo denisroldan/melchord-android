@@ -51,14 +51,23 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ReleaseVie
         public void onBindViewHolder(ReleaseViewHolder holder, int position) {
             Release release = mReleases.get(position);
             holder.releaseTitle.setText(release.getTitle());
+            holder.releaseImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
             String launched = "";
             if (release.getDate() != null) {
                 launched = release.getDate();
             }
             if (release.getThumbnail() != null) {
-                Glide.with(holder.releaseImage.getContext()).load(release.getThumbnail()).error(R.drawable.bg).into(holder.releaseImage);
+                Glide.with(holder.releaseImage.getContext())
+                        .load(release.getThumbnail())
+                        .placeholder(R.drawable.default_release)
+                        .fitCenter()
+                        .error(R.drawable.bg)
+                        .into(holder.releaseImage);
             } else {
-                holder.releaseImage.setImageResource(0);
+                Glide.with(holder.releaseImage.getContext())
+                        .load(R.drawable.default_release)
+                        .fitCenter()
+                        .into(holder.releaseImage);
             }
             if (launched.length() > 4) {
                 launched = launched.substring(0, 4);

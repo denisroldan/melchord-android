@@ -10,6 +10,7 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class SongPresenter extends BasePresenter<SongMvpView> {
     private final DataManager mDataManager;
@@ -39,6 +40,7 @@ public class SongPresenter extends BasePresenter<SongMvpView> {
                     @Override
                     public void onError(Throwable e) {
                         getMvpView().showError();
+                        Timber.tag("ERROR").d(e.getMessage());
                     }
 
                     @Override

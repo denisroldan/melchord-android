@@ -21,6 +21,9 @@ public class Artist {
     @SerializedName("country")
     @Expose
     private String country;
+    @SerializedName("bio")
+    @Expose
+    private String bio;
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
@@ -30,6 +33,9 @@ public class Artist {
     @SerializedName("release_set")
     @Expose
     private List<Release> releaseSet = new ArrayList<Release>();
+    @SerializedName("links")
+    @Expose
+    private List<Link> links = new ArrayList<Link>();
 
     /**
      * No args constructor for use in serialization
@@ -42,20 +48,24 @@ public class Artist {
      *
      * @param founded
      * @param thumbnail
+     * @param bio
      * @param mbid
      * @param name
      * @param largeImage
      * @param releaseSet
+     * @param links
      * @param country
      */
-    public Artist(String mbid, String name, Object founded, String country, String thumbnail, String largeImage, List<Release> releaseSet) {
+    public Artist(String mbid, String name, Object founded, String country, String bio, String thumbnail, String largeImage, List<Release> releaseSet, List<Link> links) {
         this.mbid = mbid;
         this.name = name;
         this.founded = founded;
         this.country = country;
+        this.bio = bio;
         this.thumbnail = thumbnail;
         this.largeImage = largeImage;
         this.releaseSet = releaseSet;
+        this.links = links;
     }
 
     /**
@@ -133,6 +143,24 @@ public class Artist {
     /**
      *
      * @return
+     * The bio
+     */
+    public String getBio() {
+        return bio;
+    }
+
+    /**
+     *
+     * @param bio
+     * The bio
+     */
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    /**
+     *
+     * @return
      * The thumbnail
      */
     public String getThumbnail() {
@@ -182,5 +210,23 @@ public class Artist {
      */
     public void setReleaseSet(List<Release> releaseSet) {
         this.releaseSet = releaseSet;
+    }
+
+    /**
+     *
+     * @return
+     * The releaseSet
+     */
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    /**
+     *
+     * @param releaseSet
+     * The release_set
+     */
+    public void setLinks(List<Link> links) {
+        this.links = links;
     }
 }

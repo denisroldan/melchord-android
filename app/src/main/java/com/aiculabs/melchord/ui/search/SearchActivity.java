@@ -161,7 +161,11 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
             results.add(artistSearch);
         }
 
-        if (results.size() == 1) {
+
+        if (results.size() == 0) {
+            Toast.makeText(this, R.string.empty_artist, Toast.LENGTH_LONG).show();
+        }
+        else if (results.size() == 1) {
             Intent i2 = new Intent(this, ArtistActivity.class);
             i2.putExtra("mbid", results.get(0).get("mbid"));
             startActivity(i2);
