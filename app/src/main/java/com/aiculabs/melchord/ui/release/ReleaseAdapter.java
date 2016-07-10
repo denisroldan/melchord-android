@@ -52,8 +52,12 @@ public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.SongView
     public void onBindViewHolder(SongViewHolder holder, int position) {
 
         Song song = mSongs.get(position);
+        String duration = song.getLength();
+        if(duration!=null && duration.startsWith("00:")){
+            duration = duration.replace("00:", "");
+        }
+        holder.durationTextView.setText(duration);
 
-        holder.durationTextView.setText(song.getLength());
         holder.nameTextView.setText(song.getTitle());
         String number_string = " ";
         if (song.getNumber() != null) number_string = song.getNumber().toString();
