@@ -3,18 +3,23 @@ package com.aiculabs.melchord.ui.artist;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.Artist;
+import com.aiculabs.melchord.data.model.Link;
 import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.ui.release.ReleaseActivity;
@@ -23,6 +28,8 @@ import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.aiculabs.melchord.util.DialogFactory;
 
 import com.bumptech.glide.Glide;
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +45,8 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView {
     ArtistPresenter mArtistPresenter;
     private ArtistAdapter mArtistAdapter;
     private Artist mArtist;
+
+    NiftyDialogBuilder dialogBuilder;
 
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -93,7 +102,64 @@ public class ArtistActivity extends BaseActivity implements ArtistMvpView {
         backdrop.setScaleType(ImageView.ScaleType.CENTER_CROP);
         refreshUI();
 
+
+        dialogBuilder = NiftyDialogBuilder.getInstance(this);
+        dialogBuilder.withTitle("Artist links")
+                .withTitleColor("#FFFFFF")
+                .withDividerColor("#3dc1b6")
+                .withDialogColor("#3dc1b6")
+                .withIcon(R.drawable.default_release)
+                .withDuration(700)
+                .withEffect(Effectstype.Slidetop)
+                .isCancelableOnTouchOutside(true);
+
+
         mArtistPresenter.getData(mbid);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_release, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_info_release:
+                RecyclerView linkRV = new RecyclerView(getApplicationContext());
+
+                LinkAdapter mLinkAdapter = new LinkAdapter(new CustomItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        Uri webpage = Uri.parse(mArtist.getLinks().get(position).getTarget());
+                        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
+                    }
+                });
+
+
+                mLinkAdapter.setLinks(mArtist.getLinks());
+                mLinkAdapter.notifyDataSetChanged();
+
+
+                linkRV.setAdapter(mLinkAdapter);
+                linkRV.setNestedScrollingEnabled(false);
+                linkRV.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+                dialogBuilder.setCustomView(linkRV, getApplicationContext());
+
+                dialogBuilder.show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     @Override

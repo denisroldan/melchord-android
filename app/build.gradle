@@ -159,6 +159,10 @@ dependencies {
 
     // Gestures
     compile 'in.championswimmer:SimpleFingerGestures_Android_Library:1.2'
+
+    // Custom Dialogs
+    compile 'com.github.sd6352051:NiftyDialogEffects:1.0.0'
+
 }
 
 // Log out test results to console
