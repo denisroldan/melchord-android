@@ -1,21 +1,18 @@
-package com.aiculabs.melchord.ui.searchResults;
+package com.aiculabs.melchord.ui.search_results;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.aiculabs.melchord.R;
-import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.artist.ArtistActivity;
 import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.util.CustomItemClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.inject.Inject;
 

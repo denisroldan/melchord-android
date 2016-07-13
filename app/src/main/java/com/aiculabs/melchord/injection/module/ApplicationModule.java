@@ -7,13 +7,12 @@ import com.aiculabs.melchord.data.remote.ArtistService;
 import com.aiculabs.melchord.data.remote.ReleaseService;
 import com.aiculabs.melchord.data.remote.SongService;
 import com.aiculabs.melchord.data.remote.TabService;
+import com.aiculabs.melchord.injection.ApplicationContext;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-
-import com.aiculabs.melchord.injection.ApplicationContext;
 
 /**
  * Provide application-level dependencies.

@@ -4,7 +4,6 @@ import com.aiculabs.melchord.data.DataManager;
 import com.aiculabs.melchord.data.model.Release;
 import com.aiculabs.melchord.ui.base.BasePresenter;
 
-
 import javax.inject.Inject;
 
 import rx.Subscriber;

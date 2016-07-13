@@ -3,13 +3,13 @@ package com.aiculabs.melchord;
 import android.app.Application;
 import android.content.Context;
 
+import com.aiculabs.melchord.injection.component.ApplicationComponent;
+import com.aiculabs.melchord.injection.component.DaggerApplicationComponent;
+import com.aiculabs.melchord.injection.module.ApplicationModule;
 import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
-import com.aiculabs.melchord.injection.component.ApplicationComponent;
-import com.aiculabs.melchord.injection.component.DaggerApplicationComponent;
-import com.aiculabs.melchord.injection.module.ApplicationModule;
 
 public class BoilerplateApplication extends Application  {
 

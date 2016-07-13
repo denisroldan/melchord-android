@@ -1,15 +1,10 @@
 package com.aiculabs.melchord.ui.tab;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.Tab;
@@ -17,11 +12,6 @@ import com.aiculabs.melchord.ui.base.BaseActivity;
 import com.aiculabs.melchord.util.DialogFactory;
 
 import javax.inject.Inject;
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.AbstractMap;
-import java.util.AbstractMap.SimpleEntry;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,16 +27,16 @@ public class TabActivity extends BaseActivity implements TabMvpView {
 
     @BindView(R.id.tab_relativeLayout)
     RelativeLayout tab_relativeLayout;
-    private String plain_html;
-    private Integer current_traspose = 0;
+    private String mPlainHtml;
+    private Integer mCurrentTraspose = 0;
 
-    private Boolean nightMode = true;
+    private Boolean mNightMode = true;
 
-    private String accent_color = "#3dc1b6";
-    private String background_color = "#1a1a1a";
-    private String foreground_color = "#fff";
-    String chord_colors[] = {"#3dc1b6", "#ececec", "#E53935", "#000", "#fff"};
-    Integer selected_color = 0;
+    private String mAccentColor = "#3dc1b6";
+    private String mBackgroundColor = "#1a1a1a";
+    private String mForegroundColor = "#fff";
+    String[] mChordColors = {"#3dc1b6", "#ececec", "#E53935", "#000", "#fff"};
+    Integer mSelectedColor = 0;
 
 
     @Override
@@ -135,35 +125,39 @@ public class TabActivity extends BaseActivity implements TabMvpView {
     }
 
     private void switchChordsColor() {
-        selected_color++;
-        selected_color = selected_color % chord_colors.length;
+        mSelectedColor++;
+        mSelectedColor = mSelectedColor % mChordColors.length;
 
-        this.plain_html = this.plain_html.replace(".text-chord {color:" + accent_color + ";}",
-                ".text-chord {color:" + chord_colors[selected_color] + ";}");
+        this.mPlainHtml = this.mPlainHtml.replace(".text-chord {color:" + mAccentColor + ";}",
+                ".text-chord {color:" + mChordColors[mSelectedColor] + ";}");
 
         refreshWebViewContent();
-        accent_color = chord_colors[selected_color];
+        mAccentColor = mChordColors[mSelectedColor];
     }
 
     private void switchNightMode() {
 
-        if (nightMode) {
+        if (mNightMode) {
             // Switch to white
-            this.plain_html = this.plain_html.replace("body{background-color: " + background_color + ";color: " + foreground_color + ";}",
-                    "body{background-color: " + foreground_color + ";color: " + background_color + ";}");
+            this.mPlainHtml = this.mPlainHtml.replace("body{background-color: "
+                            + mBackgroundColor + ";color: " + mForegroundColor + ";}",
+                    "body{background-color: " + mForegroundColor + ";color: "
+                            + mBackgroundColor + ";}");
         } else {
             // Switch to black
-            this.plain_html = this.plain_html.replace("body{background-color: " + foreground_color + ";color: " + background_color + ";}",
-                    "body{background-color: " + background_color + ";color: " + foreground_color + ";}");
+            this.mPlainHtml = this.mPlainHtml.replace("body{background-color: "
+                            + mForegroundColor + ";color: " + mBackgroundColor + ";}",
+                    "body{background-color: " + mBackgroundColor + ";color: "
+                            + mForegroundColor + ";}");
         }
 
         refreshWebViewContent();
-        nightMode = !nightMode;
+        mNightMode = !mNightMode;
     }
 
 
     private void showTrasposeToast() {
-        TabToast.show(getApplicationContext(), get_current_traspose(), false);
+        TabToast.show(getApplicationContext(), getCurrentTraspose(), false);
     }
 
     @Override
@@ -174,14 +168,16 @@ public class TabActivity extends BaseActivity implements TabMvpView {
 
     @Override
     public void showTab(Tab tab) {
-        this.plain_html = tab.getContent();
-        this.plain_html = this.plain_html.replace("html>", "html><style>.text-chord {color:" + accent_color + ";}body{background-color: " + background_color + ";color: " + foreground_color + ";}</style>");
+        this.mPlainHtml = tab.getContent();
+        this.mPlainHtml = this.mPlainHtml.replace("html>", "html><style>.text-chord {color:"
+                + mAccentColor + ";}body{background-color: " + mBackgroundColor + ";color: "
+                + mForegroundColor + ";}</style>");
         refreshWebViewContent();
 
     }
 
     private void refreshWebViewContent() {
-        tabWebView.loadDataWithBaseURL(null, this.plain_html, "text/html", "utf-8", null);
+        tabWebView.loadDataWithBaseURL(null, this.mPlainHtml, "text/html", "utf-8", null);
     }
 
     @Override
@@ -189,8 +185,8 @@ public class TabActivity extends BaseActivity implements TabMvpView {
         DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_tab)).show();
     }
 
-    public String get_current_traspose() {
-        switch (this.current_traspose) {
+    public String getCurrentTraspose() {
+        switch (this.mCurrentTraspose) {
             case 0:
                 return "0";
             case 1:
@@ -199,14 +195,14 @@ public class TabActivity extends BaseActivity implements TabMvpView {
             case 4:
             case 5:
             case 6:
-                return "+ " + Integer.toString(this.current_traspose);
+                return "+ " + Integer.toString(this.mCurrentTraspose);
             case -1:
             case -2:
             case -3:
             case -4:
             case -5:
             case -6:
-                return Integer.toString(this.current_traspose);
+                return Integer.toString(this.mCurrentTraspose);
             default:
                 return "0";
         }
@@ -214,22 +210,23 @@ public class TabActivity extends BaseActivity implements TabMvpView {
     }
 
     public void increaseTraspose() {
-        if (this.current_traspose < 6) {
-            this.current_traspose++;
+        if (this.mCurrentTraspose < 6) {
+            this.mCurrentTraspose++;
             applyTraspose(true);
         }
     }
 
     public void decreaseTraspose() {
-        if (this.current_traspose > -6) {
-            this.current_traspose--;
+        if (this.mCurrentTraspose > -6) {
+            this.mCurrentTraspose--;
             applyTraspose(false);
         }
     }
 
     public void applyTraspose(boolean positive) {
 
-        String[] all_notes = {"C#", "D#", "F#", "G#", "A#", "Db", "Eb", "Gb", "Ab", "Bb", "C", "D", "E", "F", "G", "A", "B"};
+        String[] all_notes = {"C#", "D#", "F#", "G#", "A#", "Db", "Eb", "Gb", "Ab", "Bb", "C",
+                "D", "E", "F", "G", "A", "B"};
 
         for (String note : all_notes) {
             String regex = "\\<span class=\'text-chord\'\\>" + note + "(\\w*)\\<\\/span\\>";
@@ -239,11 +236,13 @@ public class TabActivity extends BaseActivity implements TabMvpView {
             } else {
                 new_note = getPriorChromaticNote(note);
             }
-            this.plain_html = this.plain_html.replaceAll(regex, "<span class='text-chord trasposed'>" + new_note + "$1</span>");
+            this.mPlainHtml = this.mPlainHtml.replaceAll(regex,
+                    "<span class='text-chord trasposed'>" + new_note + "$1</span>");
         }
 
         String post_regex = "\\<span class=\'text-chord trasposed\'\\>(\\w*)\\<\\/span\\>";
-        this.plain_html = this.plain_html.replaceAll(post_regex, "<span class='text-chord'>$1</span>");
+        this.mPlainHtml = this.mPlainHtml.replaceAll(post_regex,
+                "<span class='text-chord'>$1</span>");
         refreshWebViewContent();
     }
 

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.aiculabs.melchord.R;
 import com.aiculabs.melchord.data.model.Link;
-import com.aiculabs.melchord.data.model.Link;
 import com.aiculabs.melchord.util.CustomItemClickListener;
 import com.bumptech.glide.Glide;
 

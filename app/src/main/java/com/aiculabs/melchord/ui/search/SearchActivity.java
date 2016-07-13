@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +18,7 @@ import com.aiculabs.melchord.data.model.ArtistSearch;
 import com.aiculabs.melchord.ui.artist.ArtistActivity;
 import com.aiculabs.melchord.ui.artist.ArtistConstants;
 import com.aiculabs.melchord.ui.base.BaseActivity;
-import com.aiculabs.melchord.ui.searchResults.SearchResultsActivity;
-import com.aiculabs.melchord.ui.tab.TabToast;
+import com.aiculabs.melchord.ui.search_results.SearchResultsActivity;
 import com.aiculabs.melchord.util.DialogFactory;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -37,25 +32,27 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.championswimmer.sfg.lib.SimpleFingerGestures;
-import timber.log.Timber;
 
 public class SearchActivity extends BaseActivity implements SearchMvpView {
 
-    @Inject SearchPresenter mSearchPresenter;
+    @Inject
+    SearchPresenter mSearchPresenter;
 
-    @BindView(R.id.queryEditText) EditText queryToSearch;
-    @BindView(R.id.progressBar) ProgressBar spinner;
-    @BindView(R.id.logo) ImageView logoIV;
+    @BindView(R.id.queryEditText)
+    EditText queryToSearch;
+    @BindView(R.id.progressBar)
+    ProgressBar spinner;
+    @BindView(R.id.logo)
+    ImageView logoIV;
     @BindView(R.id.tab_coordinator_layout)
     CoordinatorLayout tabCoordinator;
 
-    @OnClick (R.id.fab)
-    void searchBtnPushed(){
+    @OnClick(R.id.fab)
+    void searchBtnPushed() {
         if (queryToSearch.getText().toString().length() == 0) {
             animateUItoErrorState();
 
-            DialogFactory.createGenericErrorDialog(this, "Really? You don\'t want to search anything?")
+            DialogFactory.createGenericErrorDialog(this, R.string.really_question)
                     .show();
             return;
         }
@@ -78,13 +75,14 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         queryToSearch.setImeOptions(EditorInfo.IME_ACTION_DONE);
         queryToSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                        || (actionId == EditorInfo.IME_ACTION_DONE)) {
                     searchBtnPushed();
                 }
                 return false;
             }
         });
-        }
+    }
 
     @Override
     protected void onStart() {
@@ -100,32 +98,27 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
     @Override
     public void showResults(List<ArtistSearch> artistSearches) {
-        //Intent i = new Intent(this, SongActivity.class);
-
-        // For Release testing purposes
-        //Intent i = new Intent(this, ReleaseActivity.class);
-        //i.putExtra(ReleaseConstants.RELEASE_INTENT_MBID_TAG, "3133d4d5-5cfb-4f53-87f5-f3a97c8f310d");
 
         ArrayList<HashMap<String, String>> results = new ArrayList<>();
 
         Intent i = new Intent(this, SearchResultsActivity.class);
-        for (ArtistSearch artistSearchResult: artistSearches) {
+        for (ArtistSearch artistSearchResult : artistSearches) {
             HashMap<String, String> artistSearch = new HashMap<>();
             artistSearch.put(ArtistConstants.ARTIST_INTENT_NAME_TAG, artistSearchResult.getName());
             artistSearch.put(ArtistConstants.ARTIST_INTENT_MBID_TAG, artistSearchResult.getId());
-            artistSearch.put(ArtistConstants.ARTIST_INTENT_COMMENT_TAG, artistSearchResult.getComment());
+            artistSearch.put(ArtistConstants.ARTIST_INTENT_COMMENT_TAG,
+                    artistSearchResult.getComment());
             results.add(artistSearch);
         }
 
 
         if (results.size() == 0) {
             Toast.makeText(this, R.string.empty_artist, Toast.LENGTH_LONG).show();
-        }
-        else if (results.size() == 1) {
+        } else if (results.size() == 1) {
             Intent i2 = new Intent(this, ArtistActivity.class);
             i2.putExtra("mbid", results.get(0).get("mbid"));
             startActivity(i2);
-        }else{
+        } else {
             i.putExtra("search_results", results);
             startActivity(i);
         }
@@ -144,25 +137,26 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
     @Override
     public void showError() {
         animateUItoErrorState();
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_search_results))
+        DialogFactory.createGenericErrorDialog(this,
+                getString(R.string.error_loading_search_results))
                 .show();
     }
 
-    public void animateUItoLoadingState(){
+    public void animateUItoLoadingState() {
         YoYo.with(Techniques.FadeIn).duration(500).playOn(spinner);
         spinner.setVisibility(View.VISIBLE);
         YoYo.with(Techniques.FadeOutUp).duration(300).playOn(logoIV);
         YoYo.with(Techniques.FadeOutDown).duration(300).playOn(queryToSearch);
     }
 
-    public void animateUItoInitialState(){
+    public void animateUItoInitialState() {
         YoYo.with(Techniques.FadeOut).duration(500).playOn(spinner);
         spinner.setVisibility(View.GONE);
         YoYo.with(Techniques.FadeInDown).duration(300).playOn(logoIV);
         YoYo.with(Techniques.FadeInUp).duration(300).playOn(queryToSearch);
     }
 
-    public void animateUItoErrorState(){
+    public void animateUItoErrorState() {
         YoYo.with(Techniques.Tada).duration(700).playOn(logoIV);
         animateUItoInitialState();
     }

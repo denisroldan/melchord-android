@@ -7,13 +7,14 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.IBinder;
 
+import com.aiculabs.melchord.BoilerplateApplication;
+import com.aiculabs.melchord.util.AndroidComponentUtil;
+import com.aiculabs.melchord.util.NetworkUtil;
+
 import javax.inject.Inject;
 
 import rx.Subscription;
 import timber.log.Timber;
-import com.aiculabs.melchord.BoilerplateApplication;
-import com.aiculabs.melchord.util.AndroidComponentUtil;
-import com.aiculabs.melchord.util.NetworkUtil;
 
 public class SyncService extends Service {
 

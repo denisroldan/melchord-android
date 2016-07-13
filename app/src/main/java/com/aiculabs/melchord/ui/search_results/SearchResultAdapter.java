@@ -1,4 +1,4 @@
-package com.aiculabs.melchord.ui.searchResults;
+package com.aiculabs.melchord.ui.search_results;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.aiculabs.melchord.ui.searchResults;
+package com.aiculabs.melchord.ui.search_results;
 
 import com.aiculabs.melchord.ui.base.MvpView;
 

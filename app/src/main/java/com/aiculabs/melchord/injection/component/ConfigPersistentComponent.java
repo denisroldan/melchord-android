@@ -1,9 +1,10 @@
 package com.aiculabs.melchord.injection.component;
 
-import dagger.Component;
 import com.aiculabs.melchord.injection.ConfigPersistent;
 import com.aiculabs.melchord.injection.module.ActivityModule;
 import com.aiculabs.melchord.ui.base.BaseActivity;
+
+import dagger.Component;
 
 /**
  * A dagger component that will live during the lifecycle of an Activity but it won't

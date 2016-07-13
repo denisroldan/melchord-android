@@ -1,8 +1,5 @@
 package com.aiculabs.melchord.ui.artist;
 
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-
 import com.aiculabs.melchord.data.DataManager;
 import com.aiculabs.melchord.data.model.Artist;
 import com.aiculabs.melchord.ui.base.BasePresenter;

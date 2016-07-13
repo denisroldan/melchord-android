@@ -3,9 +3,10 @@ package com.aiculabs.melchord.injection.module;
 import android.app.Activity;
 import android.content.Context;
 
+import com.aiculabs.melchord.injection.ActivityContext;
+
 import dagger.Module;
 import dagger.Provides;
-import com.aiculabs.melchord.injection.ActivityContext;
 
 @Module
 public class ActivityModule {

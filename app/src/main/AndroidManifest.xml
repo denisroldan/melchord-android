@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.searchResults.SearchResultsActivity" />
+        <activity android:name=".ui.search_results.SearchResultsActivity" />
 
         <service android:name=".data.SyncService" />
 

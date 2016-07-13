@@ -3,10 +3,10 @@ package com.aiculabs.melchord.data.local;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.aiculabs.melchord.injection.ApplicationContext;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import com.aiculabs.melchord.injection.ApplicationContext;
 
 @Singleton
 public class PreferencesHelper {

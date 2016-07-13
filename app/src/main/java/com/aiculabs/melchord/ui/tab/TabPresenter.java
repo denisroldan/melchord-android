@@ -1,7 +1,6 @@
 package com.aiculabs.melchord.ui.tab;
 
 import com.aiculabs.melchord.data.DataManager;
-import com.aiculabs.melchord.data.model.Song;
 import com.aiculabs.melchord.data.model.Tab;
 import com.aiculabs.melchord.ui.base.BasePresenter;
 
