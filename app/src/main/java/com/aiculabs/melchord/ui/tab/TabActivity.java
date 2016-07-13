@@ -1,7 +1,9 @@
 package com.aiculabs.melchord.ui.tab;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -98,6 +100,13 @@ public class TabActivity extends BaseActivity implements TabMvpView {
 
         tabWebView.setOnTouchListener(sfg);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_tab, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
     private void showTrasposeToast() {
         TabToast.show(getApplicationContext(), get_current_traspose(), false);

@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -70,7 +71,8 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
         ButterKnife.bind(this);
         mSearchPresenter.attachView(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.search_toolbar);
+
         setSupportActionBar(toolbar);
 
         queryToSearch.setImeOptions(EditorInfo.IME_ACTION_DONE);
