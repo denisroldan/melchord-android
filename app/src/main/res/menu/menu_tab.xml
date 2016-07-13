@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.aiculabs.melchord.ui.release.ReleaseActivity">
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/action_chord_color"
         android:icon="@drawable/ic_format_color_fill_white_48dp"
         android:title="@string/action_color"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_night_mode"
+        android:icon="@drawable/ic_brightness_medium_white_48dp"
+        android:title="@string/action_color"
+        app:showAsAction="ifRoom"/>
+
 </menu>

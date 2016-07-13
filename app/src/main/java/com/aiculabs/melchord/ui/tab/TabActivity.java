@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -38,6 +39,15 @@ public class TabActivity extends BaseActivity implements TabMvpView {
     RelativeLayout tab_relativeLayout;
     private String plain_html;
     private Integer current_traspose = 0;
+
+    private Boolean nightMode = true;
+
+    private String accent_color = "#3dc1b6";
+    private String background_color = "#1a1a1a";
+    private String foreground_color = "#fff";
+    String chord_colors[] = {"#3dc1b6", "#ececec", "#E53935", "#000", "#fff"};
+    Integer selected_color = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +117,50 @@ public class TabActivity extends BaseActivity implements TabMvpView {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_chord_color:
+                switchChordsColor();
+                return true;
+
+            case R.id.action_night_mode:
+                switchNightMode();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    private void switchChordsColor() {
+        selected_color++;
+        selected_color = selected_color % chord_colors.length;
+
+        this.plain_html = this.plain_html.replace(".text-chord {color:" + accent_color + ";}",
+                ".text-chord {color:" + chord_colors[selected_color] + ";}");
+
+        refreshWebViewContent();
+        accent_color = chord_colors[selected_color];
+    }
+
+    private void switchNightMode() {
+
+        if (nightMode) {
+            // Switch to white
+            this.plain_html = this.plain_html.replace("body{background-color: " + background_color + ";color: " + foreground_color + ";}",
+                    "body{background-color: " + foreground_color + ";color: " + background_color + ";}");
+        } else {
+            // Switch to black
+            this.plain_html = this.plain_html.replace("body{background-color: " + foreground_color + ";color: " + background_color + ";}",
+                    "body{background-color: " + background_color + ";color: " + foreground_color + ";}");
+        }
+
+        refreshWebViewContent();
+        nightMode = !nightMode;
+    }
+
 
     private void showTrasposeToast() {
         TabToast.show(getApplicationContext(), get_current_traspose(), false);
@@ -121,9 +175,6 @@ public class TabActivity extends BaseActivity implements TabMvpView {
     @Override
     public void showTab(Tab tab) {
         this.plain_html = tab.getContent();
-        String accent_color = "#3dc1b6";
-        String background_color = "#1a1a1a";
-        String foreground_color = "#fff";
         this.plain_html = this.plain_html.replace("html>", "html><style>.text-chord {color:" + accent_color + ";}body{background-color: " + background_color + ";color: " + foreground_color + ";}</style>");
         refreshWebViewContent();
 
