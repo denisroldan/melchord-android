@@ -41,9 +41,6 @@ import timber.log.Timber;
 
 public class SearchActivity extends BaseActivity implements SearchMvpView {
 
-
-    private SimpleFingerGestures mySfg = new SimpleFingerGestures();
-
     @Inject SearchPresenter mSearchPresenter;
 
     @BindView(R.id.queryEditText) EditText queryToSearch;
@@ -75,49 +72,6 @@ public class SearchActivity extends BaseActivity implements SearchMvpView {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mySfg.setOnFingerGestureListener(new SimpleFingerGestures.OnFingerGestureListener() {
-            @Override
-            public boolean onSwipeUp(int i, long l, double v) {
-                return false;
-            }
-
-            @Override
-            public boolean onSwipeDown(int i, long l, double v) {
-                if (i==2){
-
-                    Log.wtf("melCHORD", "uka uka");
-                    Log.wtf("melCHORD", Long.toString(l));
-                    Log.wtf("melCHORD", Double.toString(v));
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onSwipeLeft(int i, long l, double v) {
-                return false;
-            }
-
-            @Override
-            public boolean onSwipeRight(int i, long l, double v) {
-                return false;
-            }
-
-            @Override
-            public boolean onPinch(int i, long l, double v) {
-                return false;
-            }
-
-            @Override
-            public boolean onUnpinch(int i, long l, double v) {
-                return false;
-            }
-
-            @Override
-            public boolean onDoubleTap(int fingers) {
-                return false;
-            }
-        });
 
         queryToSearch.setImeOptions(EditorInfo.IME_ACTION_DONE);
         queryToSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {

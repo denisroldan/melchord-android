@@ -1,6 +1,7 @@
 package com.aiculabs.melchord.ui.tab;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -14,13 +15,16 @@ import com.aiculabs.melchord.util.DialogFactory;
 
 import javax.inject.Inject;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.championswimmer.sfg.lib.SimpleFingerGestures;
 
 public class TabActivity extends BaseActivity implements TabMvpView {
-
-    int GLOBAL_TOUCH_POSITION_X = 0;
-    int GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
 
     @Inject
     TabPresenter mTabPresenter;
@@ -30,6 +34,8 @@ public class TabActivity extends BaseActivity implements TabMvpView {
 
     @BindView(R.id.tab_relativeLayout)
     RelativeLayout tab_relativeLayout;
+    private String plain_html;
+    private Integer current_traspose = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +46,61 @@ public class TabActivity extends BaseActivity implements TabMvpView {
         mTabPresenter.attachView(this);
         mTabPresenter.getData(getIntent().getIntExtra("id", 0));
 
-        //Two-Finger Drag Gesture detection
-        tab_relativeLayout.setOnTouchListener(
-                new RelativeLayout.OnTouchListener(){
-                    @Override
-                    public boolean onTouch(View v, MotionEvent m) {
-                        handleTouch(m);
-                        return true;
-                    }
-                });
+        SimpleFingerGestures sfg = new SimpleFingerGestures();
+        sfg.setConsumeTouchEvents(false);
+
+        sfg.setOnFingerGestureListener(new SimpleFingerGestures.OnFingerGestureListener() {
+            @Override
+            public boolean onSwipeUp(int fingers, long gestureDuration, double gestureDistance) {
+                if (fingers == 2) {
+                    increaseTraspose();
+                    showTrasposeToast();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onSwipeDown(int fingers, long gestureDuration, double gestureDistance) {
+                if (fingers == 2) {
+                    decreaseTraspose();
+                    showTrasposeToast();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onSwipeLeft(int fingers, long gestureDuration, double gestureDistance) {
+                return false;
+            }
+
+            @Override
+            public boolean onSwipeRight(int fingers, long gestureDuration, double gestureDistance) {
+                return false;
+            }
+
+            @Override
+            public boolean onPinch(int fingers, long gestureDuration, double gestureDistance) {
+                return false;
+            }
+
+            @Override
+            public boolean onUnpinch(int fingers, long gestureDuration, double gestureDistance) {
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTap(int fingers) {
+                return false;
+            }
+        });
+
+        tabWebView.setOnTouchListener(sfg);
+    }
+
+    private void showTrasposeToast() {
+        TabToast.show(getApplicationContext(), get_current_traspose(), false);
     }
 
     @Override
@@ -59,13 +111,17 @@ public class TabActivity extends BaseActivity implements TabMvpView {
 
     @Override
     public void showTab(Tab tab) {
-        String plain_html = tab.getContent();
+        this.plain_html = tab.getContent();
         String accent_color = "#3dc1b6";
         String background_color = "#1a1a1a";
         String foreground_color = "#fff";
-        plain_html = plain_html.replace("html>", "html><style>.text-chord {color:" + accent_color + ";}body{background-color: " + background_color + ";color: " + foreground_color + ";}</style>");
-        tabWebView.loadDataWithBaseURL(null, plain_html, "text/html", "utf-8", null);
+        this.plain_html = this.plain_html.replace("html>", "html><style>.text-chord {color:" + accent_color + ";}body{background-color: " + background_color + ";color: " + foreground_color + ";}</style>");
+        refreshWebViewContent();
 
+    }
+
+    private void refreshWebViewContent() {
+        tabWebView.loadDataWithBaseURL(null, this.plain_html, "text/html", "utf-8", null);
     }
 
     @Override
@@ -73,45 +129,143 @@ public class TabActivity extends BaseActivity implements TabMvpView {
         DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_tab)).show();
     }
 
-    void handleTouch(MotionEvent m){
-        //Number of touches
-        int pointerCount = m.getPointerCount();
-        if(pointerCount == 2){
-            int action = m.getActionMasked();
-            int actionIndex = m.getActionIndex();
-            String actionString;
-            switch (action)
-            {
-                case MotionEvent.ACTION_DOWN:
-                    GLOBAL_TOUCH_POSITION_X = (int) m.getX(1);
-                    actionString = "DOWN"+" current "+GLOBAL_TOUCH_CURRENT_POSITION_X+" prev "+GLOBAL_TOUCH_POSITION_X;
-                    break;
-                case MotionEvent.ACTION_UP:
-                    GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
-                    actionString = "UP"+" current "+GLOBAL_TOUCH_CURRENT_POSITION_X+" prev "+GLOBAL_TOUCH_POSITION_X;
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    GLOBAL_TOUCH_CURRENT_POSITION_X = (int) m.getX(1);
-                    int diff = GLOBAL_TOUCH_POSITION_X-GLOBAL_TOUCH_CURRENT_POSITION_X;
-                    actionString = "Diff "+diff+" current "+GLOBAL_TOUCH_CURRENT_POSITION_X+" prev "+GLOBAL_TOUCH_POSITION_X;
-                    break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    GLOBAL_TOUCH_POSITION_X = (int) m.getX(1);
-                    actionString = "DOWN"+" current "+GLOBAL_TOUCH_CURRENT_POSITION_X+" prev "+GLOBAL_TOUCH_POSITION_X;
-                    break;
-                default:
-                    actionString = "";
-            }
-
-            if (!actionString.equals("")){
-                TabToast.show(this, actionString, true);
-            }
-
-            pointerCount = 0;
+    public String get_current_traspose() {
+        switch (this.current_traspose) {
+            case 0:
+                return "0";
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                return "+ " + Integer.toString(this.current_traspose);
+            case -1:
+            case -2:
+            case -3:
+            case -4:
+            case -5:
+            case -6:
+                return Integer.toString(this.current_traspose);
+            default:
+                return "0";
         }
-        else {
-            GLOBAL_TOUCH_POSITION_X = 0;
-            GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
+
+    }
+
+    public void increaseTraspose() {
+        if (this.current_traspose < 6) {
+            this.current_traspose++;
+            applyTraspose(true);
         }
+    }
+
+    public void decreaseTraspose() {
+        if (this.current_traspose > -6) {
+            this.current_traspose--;
+            applyTraspose(false);
+        }
+    }
+
+    public void applyTraspose(boolean positive) {
+
+        String[] all_notes = {"C#", "D#", "F#", "G#", "A#", "Db", "Eb", "Gb", "Ab", "Bb", "C", "D", "E", "F", "G", "A", "B"};
+
+        for (String note : all_notes) {
+            String regex = "\\<span class=\'text-chord\'\\>" + note + "(\\w*)\\<\\/span\\>";
+            String new_note = "";
+            if (positive) {
+                new_note = getNextChromaticNote(note);
+            } else {
+                new_note = getPriorChromaticNote(note);
+            }
+            this.plain_html = this.plain_html.replaceAll(regex, "<span class='text-chord trasposed'>" + new_note + "$1</span>");
+        }
+
+        String post_regex = "\\<span class=\'text-chord trasposed\'\\>(\\w*)\\<\\/span\\>";
+        this.plain_html = this.plain_html.replaceAll(post_regex, "<span class='text-chord'>$1</span>");
+        refreshWebViewContent();
+    }
+
+    private String getNextChromaticNote(String note) {
+        if (note.equals("C#") || note.equals("Db")) {
+            return "D";
+        }
+        if (note.equals("D#") || note.equals("Eb")) {
+            return "E";
+        }
+        if (note.equals("F#") || note.equals("Gb")) {
+            return "G";
+        }
+        if (note.equals("G#") || note.equals("Ab")) {
+            return "A";
+        }
+        if (note.equals("A#") || note.equals("Bb")) {
+            return "B";
+        }
+
+        if (note.equals("C")) {
+            return "C#";
+        }
+        if (note.equals("D")) {
+            return "D#";
+        }
+        if (note.equals("E")) {
+            return "F";
+        }
+        if (note.equals("F")) {
+            return "F#";
+        }
+        if (note.equals("G")) {
+            return "G#";
+        }
+        if (note.equals("A")) {
+            return "A#";
+        }
+        if (note.equals("B")) {
+            return "C";
+        }
+        return "";
+    }
+
+    private String getPriorChromaticNote(String note) {
+        if (note.equals("C#") || note.equals("Db")) {
+            return "C";
+        }
+        if (note.equals("D#") || note.equals("Eb")) {
+            return "D";
+        }
+        if (note.equals("F#") || note.equals("Gb")) {
+            return "F";
+        }
+        if (note.equals("G#") || note.equals("Ab")) {
+            return "G";
+        }
+        if (note.equals("A#") || note.equals("Bb")) {
+            return "A";
+        }
+
+        if (note.equals("C")) {
+            return "B";
+        }
+        if (note.equals("D")) {
+            return "C#";
+        }
+        if (note.equals("E")) {
+            return "D#";
+        }
+        if (note.equals("F")) {
+            return "E";
+        }
+        if (note.equals("G")) {
+            return "F#";
+        }
+        if (note.equals("A")) {
+            return "G#";
+        }
+        if (note.equals("B")) {
+            return "A#";
+        }
+        return "";
     }
 }
